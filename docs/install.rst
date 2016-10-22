@@ -11,7 +11,7 @@ You can install ``yaml4rst`` by invoking the following commands:
    current_release="$(find . -type f -name '*.whl' | sort | tail -n 1)"
    gpg -v "${current_release}.asc" && pip3 install "${current_release}"
 
-Refer to `Verifying PyPI and Conda Packages`_ for more details.
+Refer to `Verifying PyPI and Conda Packages`_ for more details. Note that this might pull down dependencies in an not end-to-end authenticated way! You might want to install the dependencies yourself beforehand.
 
 Or if you feel lazy and agree that `pip/issues/1035 <https://github.com/pypa/pip/issues/1035>`_
 should be fixed you can also install ``yaml4rst`` like this:
