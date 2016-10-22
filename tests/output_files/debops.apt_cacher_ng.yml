@@ -425,13 +425,6 @@ apt_cacher_ng__custom: ''
 # Network accessibility [[[
 # -------------------------
 
-# .. envvar:: apt_cacher_ng__interfaces [[[
-#
-# List of network interfaces from which to allow access to Apt-Cacher NG.
-# If not specified, allows access from all interfaces.
-apt_cacher_ng__interfaces: []
-
-                                                                   # ]]]
 # .. envvar:: apt_cacher_ng__allow [[[
 #
 # Allow access to Apt-Cacher NG from specified IP addresses or CIDR networks.
@@ -452,12 +445,12 @@ apt_cacher_ng__group_allow: []
 # If not specified, allows access from all networks.
 apt_cacher_ng__host_allow: []
 
+                                                                   # ]]]
 # .. envvar:: apt_cacher_ng__interfaces [[[
 #
 # List of network interfaces from which to allow access to Apt-Cacher NG.
 # If not specified, allows access from all interfaces.
 apt_cacher_ng__interfaces: []
-                                                                   # ]]]
                                                                    # ]]]
                                                                    # ]]]
 # Role-dependent configuration [[[

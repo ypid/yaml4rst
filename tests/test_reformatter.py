@@ -12,7 +12,7 @@ from io import StringIO
 import unittest
 # Python 2 does not yet have mock which was a separate package back then.
 
-from nose.tools import assert_equal, assert_not_equal, assert_raises_regexp
+from nose.tools import assert_equal, assert_not_equal, assert_raises_regexp, nottest  # NOQA
 from testfixtures import log_capture, tempdir
 
 from yaml4rst.reformatter import YamlRstReformatter, YamlRstReformatterError, LOG
@@ -2430,6 +2430,111 @@ class Test(unittest.TestCase):
             # ]]]
             # ]]]
             # ]]]
+        ''').strip().split('\n')
+
+        self.r.reformat()
+
+        pprint.pprint(self.r._sections)
+        print('#######\n' + self.r.get_content() + '\n#######')
+        assert_equal(expected_output, self.r._lines)
+
+        self.r._lines = deepcopy(expected_output)
+        print('#######\n' + self.r.get_content() + '\n#######')
+        assert_equal(expected_output, self.r._lines)
+
+    def test_reformat_variables_mixed(self):
+        self.r._sections = [
+            {'fold_name': 'Network accessibility',
+             'lines': ['# -------------------------',
+                       '',
+                       '# .. envvar:: apt_cacher_ng__allow',
+                       '#',
+                       '# Allow access to Apt-Cacher NG from specified IP addresses '
+                       'or CIDR networks.',
+                       '# If not specified, allows access from all networks.',
+                       'apt_cacher_ng__allow: []'],
+             'subsections': [{'fold_name': '.. envvar:: apt_cacher_ng__interfaces',
+                              'lines': ['#',
+                                        '# List of network interfaces from which to '
+                                        'allow access to Apt-Cacher NG.',
+                                        '# If not specified, allows access from all '
+                                        'interfaces.',
+                                        'apt_cacher_ng__interfaces: []']}]},
+        ]
+        self.r._reformat_variables(self.r._sections)
+
+        pprint.pprint(self.r._sections)
+        assert_equal(
+            [{'fold_name': 'Network accessibility',
+              'lines': ['# -------------------------', ''],
+              'subsections': [{'fold_name': '.. envvar:: apt_cacher_ng__allow',
+                               'lines': ['#',
+                                         '# Allow access to Apt-Cacher NG from '
+                                         'specified IP addresses or CIDR networks.',
+                                         '# If not specified, allows access from all '
+                                         'networks.',
+                                         'apt_cacher_ng__allow: []']},
+                              {'fold_name': '.. envvar:: apt_cacher_ng__interfaces',
+                               'lines': ['#',
+                                         '# List of network interfaces from which to '
+                                         'allow access to Apt-Cacher NG.',
+                                         '# If not specified, allows access from all '
+                                         'interfaces.',
+                                         'apt_cacher_ng__interfaces: []']}]}],
+            self.r._sections,
+        )
+
+    def test_reformat_mixed_section(self):
+        self.r._lines = textwrap.dedent("""
+            # Network accessibility [[[
+            # -------------------------
+
+            # .. envvar:: apt_cacher_ng__allow
+            #
+            # Allow access to Apt-Cacher NG from specified IP addresses or CIDR networks.
+            # If not specified, allows access from all networks.
+            apt_cacher_ng__allow: []
+
+            # .. envvar:: apt_cacher_ng__interfaces [[[
+            #
+            # List of network interfaces from which to allow access to Apt-Cacher NG.
+            # If not specified, allows access from all interfaces.
+            apt_cacher_ng__interfaces: []
+                                                                               # ]]]
+                                                                               # ]]]
+        """).strip().split('\n')
+
+        expected_output = textwrap.dedent('''
+            ---
+            # .. vim: foldmarker=[[[,]]]:foldmethod=marker
+
+            # role_owner.role_name default variables [[[
+            # ==========================================
+
+            # .. contents:: Sections
+            #    :local:
+            #
+            # .. include:: includes/all.rst
+
+
+            # Network accessibility [[[
+            # -------------------------
+
+            # .. envvar:: apt_cacher_ng__allow [[[
+            #
+            # Allow access to Apt-Cacher NG from specified IP addresses or CIDR networks.
+            # If not specified, allows access from all networks.
+            apt_cacher_ng__allow: []
+
+                                                                               # ]]]
+            # .. envvar:: apt_cacher_ng__interfaces [[[
+            #
+            # List of network interfaces from which to allow access to Apt-Cacher NG.
+            # If not specified, allows access from all interfaces.
+            apt_cacher_ng__interfaces: []
+                                                                               # ]]]
+                                                                               # ]]]
+                                                                               # ]]]
         ''').strip().split('\n')
 
         self.r.reformat()

@@ -784,7 +784,10 @@ class YamlRstReformatter(object):
         return yaml_block
 
     def _reformat_variables(self, sections):
-        LOG.debug('Called _reformat_variables with sections: {}'.format(sections))
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug('Called _reformat_variables with sections:\n{}'.format(
+                pprint.pformat(sections),
+            ))
         sec_ind = -1
         while True:
             sec_ind += 1
@@ -817,7 +820,10 @@ class YamlRstReformatter(object):
                 if not variable_name_re:
                     continue
 
-                LOG.debug('sections: {}'.format(sections))
+                if LOG.isEnabledFor(logging.DEBUG):
+                    LOG.debug('sections:\n{}'.format(
+                        pprint.pformat(sections),
+                    ))
                 LOG.debug('Processing section: {}'.format(section))
                 LOG.debug('Processing line: {}'.format(line))
 
@@ -872,12 +878,17 @@ class YamlRstReformatter(object):
 
                     if 'fold_name' in section:
                         LOG.debug("Splitting section into two sections. Moving variable start into new subsection.")
+                        sections[sec_ind + 1].pop('subsections', None)
                         section.setdefault('subsections', [])
-                        section['subsections'].append(sections[sec_ind + 1])
+                        section['subsections'][0:0] = [sections[sec_ind + 1]]
                         del sections[sec_ind + 1]
                     else:
                         LOG.debug("Splitting section into two sections. Moving variable start into new section.")
                         section.pop('subsections', None)
 
+            if LOG.isEnabledFor(logging.DEBUG):
+                LOG.debug('sections:\n{}'.format(
+                    pprint.pformat(sections),
+                ))
             if 'subsections' in section:
                 self._reformat_variables(section['subsections'])
