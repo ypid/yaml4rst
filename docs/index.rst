@@ -12,4 +12,5 @@ Contents:
    config
    design
    yaml4rst
+   contributing
    changes
