@@ -144,7 +144,7 @@ release-versionbump: yaml4rst/_meta.py
 	editor "$<"
 	git commit --all --message="Release version $(shell ./setup.py --version)"
 
-.PHONY: release-prepare
+.PHONY: release-sign
 release-sign:
 	mv dist dist_signed
 	find dist_signed -type f -regextype posix-extended -regex '^.*(:?\.(:?tar\.gz|whl))$$' -print0 \
