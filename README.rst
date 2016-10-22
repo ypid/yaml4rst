@@ -8,7 +8,7 @@ yaml4rst is a linting/checking/reformatting tool for YAML files documented with
 inline RST which goes hand in hand with yaml2rst_.
 
 It has been written to help with keeping the ``defaults/main.yml`` file in
-Ansible roles maintained in DebOps_ up-to-date and to assist with writing or
+Ansible roles, maintained in DebOps_, up-to-date and to assist with writing or
 including new roles. DebOps uses Sphinx to generate Ansible role documentation
 which also includes the default role variables. Refer to `debops/docs`_ for
 details.
@@ -37,7 +37,8 @@ and fix any warning which ``yaml4rst`` might have emitted.
 Refer to ``input_files`` and ``output_files`` in the `tests directory`_ for
 automatically tested examples of input and output files.
 
-Note that for continues usage yaml4rst is called from debops-optimize_.
+Note that for continues usage yaml4rst is invoked from debops-optimize_ when
+yaml4rst is installed so you might want to try debops-optimize_.
 
 Features
 --------
