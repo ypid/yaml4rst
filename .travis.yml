@@ -1,0 +1,16 @@
+---
+
+language: python
+
+python:
+  # Should match the versions listed in ./setup.py
+  - "3.3"
+  - "3.4"
+  - "3.5"
+
+install:
+  - "pip install -e '.[test]'"
+  - "pip install -r docs/requirements.txt"
+
+script:
+  - "make NOSETESTS=nosetests check"

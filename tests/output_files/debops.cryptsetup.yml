@@ -1,0 +1,267 @@
+---
+# .. vim: foldmarker=[[[,]]]:foldmethod=marker
+
+# debops.cryptsetup default variables [[[
+# =======================================
+
+# .. contents:: Sections
+#    :local:
+#
+# .. include:: includes/all.rst
+
+
+# Required packages [[[
+# ---------------------
+
+# .. envvar:: cryptsetup_base_packages [[[
+#
+# List of base packages to install.
+cryptsetup_base_packages:
+  - 'cryptsetup'
+                                                                   # ]]]
+                                                                   # ]]]
+# List of encrypted filesystems [[[
+# ---------------------------------
+
+# .. envvar:: cryptsetup_devices [[[
+#
+# Global definition list of encrypted filesystems.
+#
+# Refer to the :ref:`documentation of all options <cryptsetup_devices>` for more details.
+cryptsetup_devices: []
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_group_devices [[[
+#
+# Host group definition list of encrypted filesystems.
+cryptsetup_group_devices: []
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_host_devices [[[
+#
+# Host definition list of encrypted filesystems.
+cryptsetup_host_devices: []
+                                                                   # ]]]
+                                                                   # ]]]
+# Keyfile settings [[[
+# --------------------
+
+# .. envvar:: cryptsetup_secret_path [[[
+#
+# Location where keyfiles are generated and stored on the Ansible controller.
+cryptsetup_secret_path: '{{ secret + "/cryptsetup/" + ansible_fqdn }}'
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_secret_owner [[[
+#
+# System user who owns the secret directory and all files in it on the Ansible controller.
+# You might want to change that if you run this role as root on the Ansible
+# controller itself but the secrets directory is managed by another user.
+# The default is set to the special value ``omit`` to use the owner under which
+# the role is run.
+cryptsetup_secret_owner: '{{ omit }}'
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_secret_group [[[
+#
+# System group of the secret directory and all files in it on the Ansible controller.
+# You might want to change that if you run this role as root on the Ansible
+# controller itself but the secrets directory is managed by another user.
+# The default is set to the special value ``omit`` to use the primary group
+# under which the role is run.
+cryptsetup_secret_group: '{{ omit }}'
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_secret_mode [[[
+#
+# File mode used for the secret directory and all files in it on the Ansible controller.
+cryptsetup_secret_mode: 'u=rwX,g=,o='
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_keyfile_remote_location [[[
+#
+# Directory where the keyfiles will be stored on the remote system.
+cryptsetup_keyfile_remote_location: '{{ (ansible_local.root.var
+                                        if (ansible_local|d() and ansible_local.root|d() and
+                                            ansible_local.root.var|d())
+                                        else "/var/local") + "/keyfiles" }}'
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_keyfile_owner [[[
+#
+# System user who owns the keyfiles on the remote system.
+cryptsetup_keyfile_owner: 'root'
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_keyfile_group [[[
+#
+# System group of the keyfiles on the remote system.
+cryptsetup_keyfile_group: 'root'
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_keyfile_mode [[[
+#
+# File mode used for the keyfiles on the remote system.
+cryptsetup_keyfile_mode: '0600'
+                                                                   # ]]]
+                                                                   # ]]]
+# LUKS header backup [[[
+# ----------------------
+
+# .. envvar:: cryptsetup_header_backup_remote_location [[[
+#
+# Directory where the header backups from LUKS will be stored on the remote system.
+#
+# The LUKS header backup will be stored in this file:
+#
+# .. code:: jinja
+#
+#    {{ cryptsetup_header_backup_remote_location + "/" + item.name + "_header_backup.raw" }}
+#
+# on the Ansible controller.
+cryptsetup_header_backup_remote_location: '{{ (ansible_local.root.backup
+                                              if (ansible_local|d() and ansible_local.root|d() and
+                                                  ansible_local.root.backup|d())
+                                              else "/var/backups") + "/luks_header_backup" }}'
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_header_backup [[[
+#
+# Should a header backup be created and stored on the remote system and the
+# Ansible controller?
+#
+# .. note:: The LUKS header is only stored once in the first few kilobytes of
+#    your block device.
+#    When the header gets corrupted, the plaintext data might be inaccessible!
+#    Thus it is recommended to have a header backup on hand.
+#
+# Set to ``False`` to disable header backup creation and to ensure that the
+# header backup on the remote system is absent.
+cryptsetup_header_backup: True
+                                                                   # ]]]
+                                                                   # ]]]
+# Ciphertext block device options [[[
+# -----------------------------------
+
+# .. envvar:: cryptsetup_use_uuid [[[
+#
+# Use the UUID of the ciphertext block device in :file:`/etc/crypttab` instead
+# of the file path given by ``ciphertext_block_device``.
+cryptsetup_use_uuid: True
+                                                                   # ]]]
+                                                                   # ]]]
+# Filesystem options [[[
+# ----------------------
+
+# .. envvar:: cryptsetup_fstype [[[
+#
+# Default filesystem to create and configure in :file:`/etc/fstab`.
+cryptsetup_fstype: 'ext4'
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_mount_options [[[
+#
+# List of default mount options.
+cryptsetup_mount_options:
+  - 'noatime'
+  - 'nodiratime'
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_state [[[
+#
+# Default ``state`` for all devices. Can be overwritten for each device using
+# ``item.state``.
+cryptsetup_state: 'mounted'
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_mountpoint_parent_directory [[[
+#
+# Parent directory under which all encrypted filesystems will be mounted.
+cryptsetup_mountpoint_parent_directory: '/media'
+                                                                   # ]]]
+                                                                   # ]]]
+# Cryptography defaults [[[
+# -------------------------
+
+# .. envvar:: cryptsetup_crypttab_options [[[
+#
+# Default list of options to configure for each device in
+# :file:`/etc/crypttab`. Can be overwritten by ``item.crypttab_options``.
+# See :manpage:`crypttab(5)` for details.
+cryptsetup_crypttab_options:
+  - 'luks'
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_hash [[[
+#
+# Specifies the hash used in the LUKS key setup scheme and volume key digest
+# for :command:`cryptsetup luksFormat`.
+# Corresponds with the ``--hash`` parameter.
+#
+# The current default of :command:`cryptsetup` (as shown by
+# :command:`cryptsetup --help`) is ``sha1``.
+# Set to ``default`` to use the compiled-in default of :command:`cryptsetup`.
+#
+# Refs: https://security.stackexchange.com/a/40218
+cryptsetup_hash: 'sha512'
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_cipher [[[
+#
+# Set the cipher specification string.
+# Corresponds with the ``--cipher`` parameter.
+#
+# The current default of :command:`cryptsetup` (as shown by
+# :command:`cryptsetup --help`) is ``aes-xts-plain64``.
+# Set to ``default`` to use the compiled-in default of :command:`cryptsetup`.
+cryptsetup_cipher: 'default'
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_key_size [[[
+#
+# Sets key size in bits. The argument has to be a multiple of 8. The possible
+# key-sizes are limited by the cipher and mode used.
+# Corresponds with the ``--key-size`` parameter.
+#
+# The current default of :command:`cryptsetup` (as shown by
+# :command:`cryptsetup --help`) is ``256``.
+# Set to ``default`` to use the compiled-in default of :command:`cryptsetup`.
+#
+# Note that in XTS mode, only half of the key size specified here will be used
+# for the block cypher (512 will result in AES-256).
+# Using AES-128 is still considered secure and is faster in most cases.
+# The reason to go with a different default value then the compiled-in default
+# of :command:`cryptsetup` was to have long-term secure storage even when
+# quantum-computing become available to your adversary.
+# Plus, with hardware acceleration available in most x86 CPUs nowadays, it
+# really done not make much of a difference anymore (at least for AES).
+#
+# Refs: https://crypto.stackexchange.com/a/7869
+cryptsetup_key_size: 512
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_use_dev_random [[[
+#
+# Should :file:`/dev/random` be used to generate the LUKS master key?
+# Corresponds with the ``--use-random`` and ``--use-urandom`` parameters.
+#
+# The current default of :command:`cryptsetup` (as shown by
+# :command:`cryptsetup --help`) is :file:`/dev/urandom`.
+# Set to ``default`` to use the compiled-in default of :command:`cryptsetup`.
+#
+# Check :manpage:`random(4)` and https://bettercrypto.org/ for details.
+cryptsetup_use_dev_random: True
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_iter_time [[[
+#
+# The number of milliseconds to spend with PBKDF2 passphrase processing.
+# Corresponds with the ``--iter-time`` parameter.
+#
+# The current default of :command:`cryptsetup` (as shown by
+# :command:`cryptsetup --help`) is ``1000`` milliseconds.
+# Set to ``default`` to use the compiled-in default of :command:`cryptsetup`.
+cryptsetup_iter_time: 'default'
+                                                                   # ]]]
+                                                                   # ]]]
+                                                                   # ]]]

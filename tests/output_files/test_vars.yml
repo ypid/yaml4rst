@@ -1,0 +1,31 @@
+---
+# .. vim: foldmarker=[[[,]]]:foldmethod=marker
+
+# test_vars default variables [[[
+# ===============================
+
+# .. contents:: Sections
+#    :local:
+#
+# .. include:: includes/all.rst
+
+
+# .. envvar:: cryptsetup_group_devices [[[
+#
+# Host group definition list of encrypted filesystems.
+cryptsetup_group_devices: []
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_host_devices [[[
+#
+# Host definition list of encrypted filesystems.
+cryptsetup_host_devices: []
+
+                                                                   # ]]]
+# .. envvar:: cryptsetup_host [[[
+#
+# some
+# thing
+cryptsetup_host: []
+                                                                   # ]]]
+                                                                   # ]]]

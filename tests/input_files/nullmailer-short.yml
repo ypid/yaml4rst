@@ -1,0 +1,42 @@
+---
+# .. vim: foldmarker=[[[,]]]:foldmethod=marker
+
+# .. contents:: Sections
+#    :local:
+#
+# .. include:: includes/all.rst
+
+# Basic configuration and other MTAs [[[
+# ---------------------------------
+
+# .. envvar:: nullmailer__enabled [[[
+#
+# Enable or disable support for ``nullmailer`` service. The role will check for
+# presence of other Mail Transport Agents on a host and disable itself
+# automatically if needed.
+nullmailer__enabled: True
+
+                                                                   # ]]]
+# .. envvar:: nullmailer__skip_mta [[[
+#
+# The ``debops.nullmailer`` role avoids replacing the currently configured SMTP
+# server if it's detected. To disable this functionality and force the
+# ``nullmailer`` service to replace an existing MTA, set this variable to
+# ``False``.
+nullmailer__skip_mta: True
+
+                                                                   # ]]]
+                                                                   # ]]]
+# APT package configuration [[[
+# ------------------
+
+# test
+
+# .. envvar:: nullmailer__base_packages [[[
+#
+# List of APT packages which will be installed to configure ``nullmailer``
+# service.
+nullmailer__base_packages: [ 'nullmailer' ]
+
+                                                                   # ]]]
+                                                                   # ]]]

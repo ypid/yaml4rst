@@ -1,0 +1,15 @@
+[MESSAGES CONTROL]
+
+#enable=
+
+disable=logging-format-interpolation
+
+# logging-format-interpolation: TODO: logging to new-style formating.
+
+[FORMAT]
+
+max-line-length=120
+
+[BASIC]
+
+good-names=i,j,k,ex,Run,_,kv,k,v
