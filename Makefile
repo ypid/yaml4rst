@@ -35,7 +35,7 @@ remove-pre-commit-hook:
 
 ## check {{{
 .PHONY: check
-check: unit-tests check-test-coverage check-integration-tests check-docs check-lint
+check: check-unit-tests-with-coverage check-integration-tests check-docs check-lint
 
 # TODO
 .PHONY: check-tox
@@ -69,15 +69,15 @@ check-radon: yaml4rst/
 check-travis.yml: .travis.yml
 	yamllint "$<"
 
-.PHONY: unit-tests
-unit-tests: check-nose
-
 .PHONY: check-nose
 check-nose:
 	$(NOSETESTS)
 
-.PHONY: check-test-coverage
-check-test-coverage:
+.PHONY: check-unit-tests
+check-unit-tests: check-nose
+
+.PHONY: check-unit-tests-with-coverage
+check-unit-tests-with-coverage:
 	$(NOSETESTS) --with-coverage --cover-package yaml4rst --cover-branches --cover-erase --cover-min-percentage=100
 
 .PHONY: check-integration-tests
