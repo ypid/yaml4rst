@@ -37,7 +37,7 @@ and fix any warning which ``yaml4rst`` might have emitted.
 Refer to ``input_files`` and ``output_files`` in the `tests directory`_ for
 automatically tested examples of input and output files.
 
-Note: FIXME debops-optimize
+Note that for continues usage yaml4rst is called from debops-optimize_.
 
 Features
 --------
@@ -88,6 +88,7 @@ License
 .. _yaml2rst: https://github.com/htgoebel/yaml2rst
 .. _Makefile: https://github.com/ypid/yaml4rst/blob/master/Makefile
 .. _tests directory: https://github.com/ypid/yaml4rst/tree/master/tests
+.. _debops-optimize: https://github.com/ypid/ypid-ansible-common/blob/master/bin/debops-optimize
 
 .. |Build Status| image:: https://travis-ci.org/ypid/yaml4rst.svg
    :target: https://travis-ci.org/ypid/yaml4rst
