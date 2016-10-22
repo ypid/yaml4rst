@@ -903,6 +903,48 @@ class Test(unittest.TestCase):
             self.r._sections,
         )
 
+    def test_get_sections_for_lines_mixed(self):
+        self.r._lines = textwrap.dedent("""
+            # Network accessibility [[[
+            # -------------------------
+
+            # .. envvar:: role_name__interfaces [[[
+            #
+            # List of network interfaces from which to allow access to Apt-Cacher NG.
+            # If not specified, allows access from all interfaces.
+            role_name__interfaces: []
+
+                                                                               # ]]]
+            # .. envvar:: apt_cacher_ng__allow
+            #
+            # Allow access to Apt-Cacher NG from specified IP addresses or CIDR networks.
+            # If not specified, allows access from all networks.
+            role_name__allow: []
+                                                                               # ]]]
+        """).strip().split('\n')
+        _, self.r._sections = self.r._get_sections_for_lines(self.r._lines, 0)
+
+        pprint.pprint(self.r._sections)
+        assert_equal(
+            [{'fold_name': 'Network accessibility',
+              'lines': ['# -------------------------'],
+              'subsections': [{'fold_name': '.. envvar:: role_name__interfaces',
+                               'lines': ['#',
+                                         '# List of network interfaces from which to '
+                                         'allow access to Apt-Cacher NG.',
+                                         '# If not specified, allows access from all '
+                                         'interfaces.',
+                                         'role_name__interfaces: []']},
+                              {'lines': ['# .. envvar:: apt_cacher_ng__allow',
+                                         '#',
+                                         '# Allow access to Apt-Cacher NG from '
+                                         'specified IP addresses or CIDR networks.',
+                                         '# If not specified, allows access from all '
+                                         'networks.',
+                                         'role_name__allow: []']}]}],
+            self.r._sections,
+        )
+
     def test_reformat_variables_single(self):
         self.r._sections = [
             {
@@ -2447,19 +2489,19 @@ class Test(unittest.TestCase):
             {'fold_name': 'Network accessibility',
              'lines': ['# -------------------------',
                        '',
-                       '# .. envvar:: apt_cacher_ng__allow',
+                       '# .. envvar:: role_name__allow',
                        '#',
                        '# Allow access to Apt-Cacher NG from specified IP addresses '
                        'or CIDR networks.',
                        '# If not specified, allows access from all networks.',
-                       'apt_cacher_ng__allow: []'],
-             'subsections': [{'fold_name': '.. envvar:: apt_cacher_ng__interfaces',
+                       'role_name__allow: []'],
+             'subsections': [{'fold_name': '.. envvar:: role_name__interfaces',
                               'lines': ['#',
                                         '# List of network interfaces from which to '
                                         'allow access to Apt-Cacher NG.',
                                         '# If not specified, allows access from all '
                                         'interfaces.',
-                                        'apt_cacher_ng__interfaces: []']}]},
+                                        'role_name__interfaces: []']}]},
         ]
         self.r._reformat_variables(self.r._sections)
 
@@ -2467,20 +2509,20 @@ class Test(unittest.TestCase):
         assert_equal(
             [{'fold_name': 'Network accessibility',
               'lines': ['# -------------------------', ''],
-              'subsections': [{'fold_name': '.. envvar:: apt_cacher_ng__allow',
+              'subsections': [{'fold_name': '.. envvar:: role_name__allow',
                                'lines': ['#',
                                          '# Allow access to Apt-Cacher NG from '
                                          'specified IP addresses or CIDR networks.',
                                          '# If not specified, allows access from all '
                                          'networks.',
-                                         'apt_cacher_ng__allow: []']},
-                              {'fold_name': '.. envvar:: apt_cacher_ng__interfaces',
+                                         'role_name__allow: []']},
+                              {'fold_name': '.. envvar:: role_name__interfaces',
                                'lines': ['#',
                                          '# List of network interfaces from which to '
                                          'allow access to Apt-Cacher NG.',
                                          '# If not specified, allows access from all '
                                          'interfaces.',
-                                         'apt_cacher_ng__interfaces: []']}]}],
+                                         'role_name__interfaces: []']}]}],
             self.r._sections,
         )
 
@@ -2489,17 +2531,17 @@ class Test(unittest.TestCase):
             # Network accessibility [[[
             # -------------------------
 
-            # .. envvar:: apt_cacher_ng__allow
+            # .. envvar:: role_name__allow
             #
             # Allow access to Apt-Cacher NG from specified IP addresses or CIDR networks.
             # If not specified, allows access from all networks.
-            apt_cacher_ng__allow: []
+            role_name__allow: []
 
-            # .. envvar:: apt_cacher_ng__interfaces [[[
+            # .. envvar:: role_name__interfaces [[[
             #
             # List of network interfaces from which to allow access to Apt-Cacher NG.
             # If not specified, allows access from all interfaces.
-            apt_cacher_ng__interfaces: []
+            role_name__interfaces: []
                                                                                # ]]]
                                                                                # ]]]
         """).strip().split('\n')
@@ -2520,18 +2562,18 @@ class Test(unittest.TestCase):
             # Network accessibility [[[
             # -------------------------
 
-            # .. envvar:: apt_cacher_ng__allow [[[
+            # .. envvar:: role_name__allow [[[
             #
             # Allow access to Apt-Cacher NG from specified IP addresses or CIDR networks.
             # If not specified, allows access from all networks.
-            apt_cacher_ng__allow: []
+            role_name__allow: []
 
                                                                                # ]]]
-            # .. envvar:: apt_cacher_ng__interfaces [[[
+            # .. envvar:: role_name__interfaces [[[
             #
             # List of network interfaces from which to allow access to Apt-Cacher NG.
             # If not specified, allows access from all interfaces.
-            apt_cacher_ng__interfaces: []
+            role_name__interfaces: []
                                                                                # ]]]
                                                                                # ]]]
                                                                                # ]]]

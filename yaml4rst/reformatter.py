@@ -325,13 +325,19 @@ class YamlRstReformatter(object):
                         line = input_lines[ind]
                         fold = self._get_line_fold(line)
 
-                        if fold['change'] != 0 or not line.startswith('#'):
+                        if fold['change'] != 0:
                             break
 
                     subsections.append({
-                        'lines': input_lines[start_ind:ind],
+                        'lines': strip_list(input_lines[start_ind:ind]),
                     })
-                    continue
+
+                    if fold['change'] != 0:
+                        ind -= 1
+
+                    continue  # pragma: no cover
+                    # Seems to be a known issue that coverage.py might fail with that:
+                    # https://bitbucket.org/ned/coveragepy/issues/496/incorrect-coverage-with-branching-and
 
                 section_lines.append(line)
                 LOG.debug('section_lines: {}'.format(section_lines))
@@ -886,9 +892,5 @@ class YamlRstReformatter(object):
                         LOG.debug("Splitting section into two sections. Moving variable start into new section.")
                         section.pop('subsections', None)
 
-            if LOG.isEnabledFor(logging.DEBUG):
-                LOG.debug('sections:\n{}'.format(
-                    pprint.pformat(sections),
-                ))
             if 'subsections' in section:
                 self._reformat_variables(section['subsections'])
