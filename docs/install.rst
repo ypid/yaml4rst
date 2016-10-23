@@ -1,6 +1,9 @@
 Installation
 ============
 
+Latest release
+--------------
+
 You can install ``yaml4rst`` by invoking the following commands:
 
 .. code-block:: bash
@@ -21,3 +24,21 @@ should be fixed you can also install ``yaml4rst`` like this:
    pip3 install yaml4rst
 
 .. _Verifying PyPI and Conda Packages: http://stuartmumford.uk/blog/verifying-pypi-and-conda-packages.html
+
+Development version
+-------------------
+
+If you want to be more on the bleeding edge of ``yaml4rst`` development
+consider cloning the ``git`` repository and installing from it:
+
+.. code-block:: bash
+
+   gpg --recv-keys 'EF96 BC32 AC57 CFC7 2DF0  1D8C 489A 4D5E C353 C98A'
+   git clone https://github.com/ypid/yaml4rst.git
+   cd yaml4rst && git verify-commit HEAD
+   echo 'Check if the HEAD commit has a good signature and only proceed in that case!' && read -r fnord
+   echo 'Then chose one of the commands below to install yaml4rst and its dependencies:'
+   pip3 install .
+   ./setup.py develop --user
+   ./setup.py install --user
+   ./setup.py install
