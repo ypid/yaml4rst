@@ -88,10 +88,10 @@ check-integration-tests: prepare-real-data check-real-data
 
 .PHONY: prepare-real-data
 prepare-real-data: ./tests/raw_input_files
-	for input_file in "$<"/*; do \
-		echo "Preparing $$input_file"; \
-		output_file="./tests/input_files/$$(basename "$$input_file")"; \
-		sed --regexp-extended '/^(\s*#\s*(\.{2})?\s*.*?)\s*[[({]{3}[[:digit:]]*$$/d;' "$$input_file" > "$$output_file"; \
+	for raw_input_file in "$<"/*; do \
+		echo "Preparing $$raw_input_file"; \
+		io_file="./tests/input_files/$$(basename "$$raw_input_file")"; \
+		sed --regexp-extended '/^(\s*#\s*(\.{2})?\s*.*?)\s*[[({]{3}[[:digit:]]*$$/d;' "$$raw_input_file" > "$$io_file"; \
 	done
 
 .PHONY: check-real-data
@@ -162,7 +162,11 @@ pypi-register: build
 pypi-upload: build
 	twine upload -r "$(PYPI_REPO)" dist_signed/*
 
+.PHONY: git-push
+git-push:
+	git push --tags
+
 .PHONY: release
-release: release-prepare pypi-register pypi-upload
+release: release-prepare pypi-register pypi-upload git-push
 
 ## }}}
