@@ -140,9 +140,9 @@ build: setup.py
 	"./$<" bdist_wheel sdist
 
 .PHONY: release-versionbump
-release-versionbump: yaml4rst/_meta.py
-	editor "$<"
-	git commit --all --message="Release version $(shell ./setup.py --version)"
+release-versionbump: yaml4rst/_meta.py CHANGES.rst
+	editor $?
+	if [[ -n "$(shell git status -s)" ]]; then git commit --all --message="Release version $(shell ./setup.py --version)"; fi
 
 .PHONY: release-sign
 release-sign:
