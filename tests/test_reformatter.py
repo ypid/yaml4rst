@@ -269,6 +269,58 @@ class Test(unittest.TestCase):
         print('#######\n' + self.r.get_content() + '\n#######')
         assert_equal(expected_lines, self.r._lines)
 
+    def test_update_header_no_empty_line_to_content(self):
+        self.r._lines = textwrap.dedent("""
+            ---
+            # Default variables
+            # =================
+
+            # .. contents:: Sections
+            #    :local:
+            #
+            # ---------------------------
+            #   Swap file configuration
+            # ---------------------------
+
+            # .. envvar:: swapfile__size
+            #
+            # Default size of swap files, in MB.
+            swapfile__size: '{{ ((ansible_memtotal_mb|int * 2)
+                                 if (ansible_memtotal_mb|int <= 2048)
+                                 else "512") }}'
+        """).strip().split('\n')
+        self.r._update_header()
+
+        print('#######\n' + self.r.get_content() + '\n#######')
+        assert_equal(
+            textwrap.dedent("""
+                ---
+                # .. vim: foldmarker=[[[,]]]:foldmethod=marker
+
+                # role_owner.role_name default variables [[[
+                # ==========================================
+
+                # .. contents:: Sections
+                #    :local:
+                #
+                # .. include:: includes/all.rst
+
+
+                # ---------------------------
+                #   Swap file configuration
+                # ---------------------------
+
+                # .. envvar:: swapfile__size
+                #
+                # Default size of swap files, in MB.
+                swapfile__size: '{{ ((ansible_memtotal_mb|int * 2)
+                                     if (ansible_memtotal_mb|int <= 2048)
+                                     else "512") }}'
+                                                                                   # ]]]
+            """).strip().split('\n'),
+            self.r._lines,
+        )
+
     def test_get_rendered_template_missing_vars(self):
         self.r = YamlRstReformatter()
         assert_raises_regexp(
@@ -1782,6 +1834,51 @@ class Test(unittest.TestCase):
             ''').strip().split('\n'),
             self.r._lines,
         )
+
+    def test_reformat_legacy_rst_sections_no_empty_line_to_content(self):
+        self.r._sections = [
+            {
+                "lines": textwrap.dedent("""
+                    ---
+                    # Default variables
+                    # =================
+
+                    # .. contents:: Sections
+                    #    :local:
+                    #
+                    # ---------------------------
+                    #   Swap file configuration
+                    # ---------------------------
+
+                    # .. envvar:: swapfile__size
+                    #
+                    # Default size of swap files, in MB.
+                    swapfile__size: '{{ ((ansible_memtotal_mb|int * 2)
+                                         if (ansible_memtotal_mb|int <= 2048)
+                                         else "512") }}'
+                """).strip().split('\n'),
+            },
+        ]
+        self.r._reformat_legacy_rst_sections(self.r._sections)
+
+        pprint.pprint(self.r._sections)
+        assert_equal(
+            [{'lines': ['---',
+                        '# Default variables',
+                        '# =================',
+                        '',
+                        '# .. contents:: Sections',
+                        '#    :local:']},
+             {'fold_name': 'Swap file configuration',
+              'lines': ['# ---------------------------',
+                        '',
+                        '# .. envvar:: swapfile__size',
+                        '#',
+                        '# Default size of swap files, in MB.',
+                        "swapfile__size: '{{ ((ansible_memtotal_mb|int * 2)",
+                        '                     if (ansible_memtotal_mb|int <= 2048)',
+                        '                     else "512") }}\'']}],
+            self.r._sections)
 
     @log_capture(level=logging.WARNING)
     def test_add_fixmes(self, log):

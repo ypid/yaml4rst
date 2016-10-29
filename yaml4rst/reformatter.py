@@ -652,6 +652,7 @@ class YamlRstReformatter(object):
 
                 eof = ind+1 not in range(len(section['lines']))
                 if len(heading_char_inds) >= 1 and heading is not None and (eof or state == 'before'):
+                    section_start = min([heading_ind] + heading_char_inds[1:])
                     LOG.debug('Deleting lines at: {}'.format([heading_ind] + heading_char_inds[1:]))
                     ind_offset = 0
                     for del_ind in [heading_ind] + heading_char_inds[1:]:
@@ -662,18 +663,12 @@ class YamlRstReformatter(object):
 
                     priv_fold_name = section.get('fold_name', None)
 
-                    last_section_end = get_last_index(
-                        section['lines'][:ind],
-                        [''],
-                        fallback=ind,
-                    )
-
-                    if last_section_end is None or ind < 2:
+                    if section_start is None or ind < 2:
                         section['fold_name'] = heading
                     else:
                         LOG.debug('Creating new fold')
                         new_section = {
-                            'lines': section['lines'][last_section_end + 1:],
+                            'lines': strip_list(section['lines'][section_start - 1:]),
                             'fold_name': heading,
                         }
                         section_level = self._get_section_level(heading_char)
@@ -682,10 +677,12 @@ class YamlRstReformatter(object):
                         if 'subsections' in section:
                             new_section['subsections'] = section['subsections']
                             del section['subsections']
-                        LOG.debug('section start: {}'.format(last_section_end))
-                        LOG.debug('section level: {}'.format(section_level))
-                        LOG.debug('new section: {}'.format(new_section))
-                        section['lines'] = section['lines'][:last_section_end]
+                        if LOG.isEnabledFor(logging.DEBUG):
+                            LOG.debug('section start: {}'.format(section_start))
+                            LOG.debug('section level: {}'.format(section_level))
+                            LOG.debug('sec_ind: {}'.format(sec_ind))
+                            LOG.debug("new section: \n{}".format(pprint.pformat(new_section)))
+                        section['lines'] = section['lines'][:section_start - 1]
                         sections.insert(sec_ind + 1, new_section)
 
                     if (priv_fold_name is not None and

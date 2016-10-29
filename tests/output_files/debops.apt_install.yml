@@ -10,9 +10,9 @@
 # .. include:: includes/all.rst
 
 
+# Role configuration [[[
 # ----------------------
 
-                                                                   # ]]]
 # .. envvar:: apt_install__enabled [[[
 #
 # Enable or disable support for ``debops.apt_install`` role.
@@ -102,7 +102,7 @@ apt_install__cache_valid_time: '{{ ansible_local.core.cache_valid_time
                                    if (ansible_local|d() and ansible_local.core|d() and
                                        ansible_local.core.cache_valid_time)
                                    else (60 * 60 * 24 * 7) }}'
-
+                                                                   # ]]]
                                                                    # ]]]
 # APT package lists [[[
 # ---------------------
@@ -309,5 +309,6 @@ apt_install__apt_preferences__dependent_list:
     backports: [ 'jessie' ]
     reason:  'Bug fixes and memory leak fixes.'
     by_role: 'debops.apt_install'
+                                                                   # ]]]
                                                                    # ]]]
                                                                    # ]]]
