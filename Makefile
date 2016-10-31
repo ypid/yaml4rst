@@ -43,8 +43,8 @@ check-tox:
 	tox
 
 .PHONY: check-docs
-check-docs: docs
-	$(MAKE) -C "$<" html > /dev/null
+check-docs:
+	$(MAKE) "docs" > /dev/null
 
 .PHONY: check-lint
 check-lint: check-flake8 check-pylint check-travis.yml
@@ -138,6 +138,10 @@ distclean: clean
 .PHONY: build
 build: setup.py
 	"./$<" bdist_wheel sdist
+
+.PHONY: docs
+docs:
+	$(MAKE) -C "docs" html
 
 .PHONY: release-versionbump
 release-versionbump: yaml4rst/_meta.py CHANGES.rst
