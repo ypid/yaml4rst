@@ -12,6 +12,11 @@ yaml4rst master - unreleased
 
 .. _yaml4rst master: https://github.com/ypid/yaml4rst/compare/v0.1.0...master
 
+Fixed
+~~~~~
+
+- Fix legacy reST section detection when heading is directly follows by a comment. [ypid_]
+
 
 yaml4rst v0.1.0 - 2016-10-28
 ----------------------------
