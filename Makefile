@@ -146,17 +146,18 @@ docs:
 .PHONY: release-versionbump
 release-versionbump: yaml4rst/_meta.py CHANGES.rst
 	editor $?
-	if [[ -n "$(shell git status -s)" ]]; then git commit --all --message="Release version $(shell ./setup.py --version)"; fi
+	git commit --all --message="Release version $(shell ./setup.py --version)"  || :
 
 .PHONY: release-sign
-release-sign:
+release-sign: distclean build
+	rm -rf dist_signed
 	mv dist dist_signed
 	find dist_signed -type f -regextype posix-extended -regex '^.*(:?\.(:?tar\.gz|whl))$$' -print0 \
 		| xargs --null --max-args=1 $(RELEASE_OPENPGP_CMD) --default-key "$(RELEASE_OPENPGP_FINGERPRINT)" --detach-sign --armor
-	git tag --sign --local-user "$(RELEASE_OPENPGP_FINGERPRINT)" "v$(shell ./setup.py --version)"
+	git tag --sign --local-user "$(RELEASE_OPENPGP_FINGERPRINT)" --message "Released version $(shell ./setup.py --version)" "v$(shell ./setup.py --version)"
 
 .PHONY: release-prepare
-release-prepare: check release-versionbump distclean build release-sign
+release-prepare: check release-versionbump release-sign
 
 .PHONY: pypi-register
 pypi-register: build
