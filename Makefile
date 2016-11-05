@@ -171,7 +171,10 @@ pypi-upload: build
 git-push:
 	git push --tags
 
+.PHONY: release-publish
+release-publish:  pypi-register pypi-upload git-push
+
 .PHONY: release
-release: release-prepare pypi-register pypi-upload git-push
+release: release-prepare release-publish
 
 ## }}}
