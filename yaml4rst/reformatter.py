@@ -116,7 +116,7 @@ class YamlRstReformatter(object):
         return '\n'.join(self._lines)
 
     def reformat(self):
-        """Process (check/lint/reformat) the saved lines."""
+        """Process (check/lint/reformat) the instance lines."""
         self._check_folds()
         _, self._sections = self._get_sections_for_lines(self._lines, 0, section_lines=[])
         if LOG.isEnabledFor(logging.DEBUG):
@@ -150,7 +150,7 @@ class YamlRstReformatter(object):
         yaml.load(self.get_content())
 
     def write_file(self, output_file):
-        """Write the saved lines to the given output file path and save its content for later processing."""
+        """Write the instance lines to the given output file path and save its content for later processing."""
         if output_file == '-':
             sys.stdout.write(self.get_content() + '\n')
         else:
@@ -783,6 +783,8 @@ class YamlRstReformatter(object):
                 yaml_block = False
             elif line.endswith(': |'):
                 yaml_block = True
+            elif re.search(r'^\w+:', line):
+                yaml_block = False
 
         return yaml_block
 

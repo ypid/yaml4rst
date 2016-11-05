@@ -10,7 +10,7 @@ import logging
 from copy import deepcopy
 from io import StringIO
 import unittest
-# Python 2 does not yet have mock which was a separate package back then.
+# Python 2 does not yet have `mock` which was a separate package back then.
 
 from nose.tools import assert_equal, assert_not_equal, assert_raises_regexp, nottest  # NOQA
 from testfixtures import log_capture, tempdir
@@ -2148,13 +2148,33 @@ class Test(unittest.TestCase):
             # ]]]
         ''').strip().split('\n')
         pprint.pprint(lines)
-        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:len(lines) - 0]))
-        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:len(lines) - 1]))
-        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:len(lines) - 2]))
-        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:len(lines) - 3]))
-        assert_equal(False, self.r._check_ends_with_yaml_block(lines[:len(lines) - 4]))
-        assert_equal(False, self.r._check_ends_with_yaml_block(lines[:len(lines) - 5]))
-        assert_equal(False, self.r._check_ends_with_yaml_block(lines[:len(lines) - 6]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-1]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-2]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-3]))
+        assert_equal(False, self.r._check_ends_with_yaml_block(lines[:-4]))
+        assert_equal(False, self.r._check_ends_with_yaml_block(lines[:-5]))
+        assert_equal(False, self.r._check_ends_with_yaml_block(lines[:-6]))
+
+    def test_check_ends_with_yaml_block_with_yaml_block_commented_out(self):
+        lines = textwrap.dedent('''
+            # .. envvar:: apparmor__global_tunables [[[
+            #
+            # Allows you to define or append variables which will be included by most
+            # profiles via the tunable concept of AppArmor.
+            # See also: https://wiki.ubuntu.com/DebuggingApparmor#Adjusting_Tunables
+            #
+            # Example::
+            #
+            #    apparmor__global_tunables: |
+            #      @{HOMEDIRS}+=/exports/home/
+            #
+            apparmor__global_tunables: ''
+
+            # ]]]
+        ''').strip().split('\n')
+        pprint.pprint(lines)
+        assert_equal(False, self.r._check_ends_with_yaml_block(lines))
 
     def test_reformat_bare_vars(self):
         self.r = YamlRstReformatter(
