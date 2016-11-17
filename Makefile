@@ -1,4 +1,4 @@
-PIP_OPTIONS =
+PIP_OPTIONS = --user
 RELEASE_OPENPGP_FINGERPRINT ?= C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0
 RELEASE_OPENPGP_CMD ?= gpg
 PYPI_REPO ?= pypi
@@ -138,6 +138,10 @@ distclean: clean
 .PHONY: build
 build: setup.py
 	"./$<" bdist_wheel sdist
+
+.PHONY: install-dev
+install-dev: setup.py
+	pip3 install "$(PIP_OPTIONS)" --editable . --no-deps
 
 .PHONY: docs
 docs:
