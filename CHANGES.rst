@@ -12,6 +12,16 @@ yaml4rst master - unreleased
 
 .. _yaml4rst master: https://github.com/ypid/yaml4rst/compare/v0.1.1...master
 
+Fixed
+~~~~~
+
+- Python packaging which previously included and installed the unit tests as
+  separate "tests" Python package.
+  Now the built distribution release (Wheel) only contains the actual Python package
+  "yaml4rst" without the unit tests. Checkout the source distribution or the
+  git repository for hacking on the project.
+  Thanks very much to ganto_ for reporting and providing a patch! [ypid_]
+
 
 `yaml4rst v0.1.1`_ - 2016-11-05
 -------------------------------

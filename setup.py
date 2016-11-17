@@ -51,7 +51,8 @@ setup(
         'Topic :: Text Processing',
     ),
     keywords='YML YAML RST reStructuresText Ansible DebOps linting docs documentation',
-    packages=find_packages(),
+    packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
+    package_data={'yaml4rst': ['*.j2']},
     install_requires=[
         # Debian packages: python-yaml python3-yaml python-jinja2 python3-jinja2
         'PyYAML',

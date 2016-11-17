@@ -919,6 +919,44 @@
 .. _debops.directories: https://github.com/debops/ansible-directories
 .. ]]]
 
+.. DebOps People [[[
+
+.. Link target preference:
+   1. DebOps People
+   2. DebOps Wiki
+   3. GitHub profile
+   4. Any HTTPS URL
+   5. Any legacy HTTP URL
+
+.. _DebOps People: https://docs.debops.org/en/latest/debops-keyring/docs/entities.html
+
+.. _drybjed: https://docs.debops.org/en/latest/debops-keyring/docs/entities.html#debops-keyring-entity-drybjed
+.. _ypid-ansible-common: https://github.com/ypid/ypid-ansible-common/
+.. _ypid-ansible-inventory: https://github.com/ypid/ypid-ansible-inventory
+
+.. _le9i0nx: https://docs.debops.org/en/latest/debops-keyring/docs/entities.html#debops-keyring-entity-le9i0nx
+
+.. _AnBuKu: https://github.com/AnBuKu
+.. AuBuKa aka. hugi
+
+.. _ganto: https://github.com/ganto
+.. _htgoebel: https://github.com/htgoebel
+.. _nickjj: https://github.com/nickjj
+.. _scibi: https://github.com/scibi
+.. _do3cc: https://github.com/do3cc
+.. _thiagotalma: https://github.com/thiagotalma
+.. _mbarcia: https://github.com/mbarcia
+.. _jacksingleton: https://github.com/jacksingleton
+.. _ser: https://github.com/ser
+.. _yuvadm: https://github.com/yuvadm
+.. _pedroluislopez: https://github.com/pedroluislopez
+.. _patrickheeney: https://github.com/patrickheeney
+.. _rchady: https://github.com/rchady
+.. _tallandtree: https://github.com/tallandtree
+.. _zpfvo: https://github.com/zpfvo
+
+.. ]]]
+
 .. External [[[
 
 .. Link target preference:
