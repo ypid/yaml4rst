@@ -173,7 +173,7 @@ pypi-upload: build
 
 .PHONY: git-push
 git-push:
-	git push --tags
+	git push --follow-tags
 
 .PHONY: release-publish
 release-publish:  pypi-register pypi-upload git-push
