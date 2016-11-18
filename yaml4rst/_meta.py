@@ -5,7 +5,7 @@ Meta information about yaml4rst
 """
 
 # https://stackoverflow.com/a/16084844
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 __license__ = 'AGPL-3.0'
 __author__ = 'Robin Schneider <ypid@riseup.net>'
