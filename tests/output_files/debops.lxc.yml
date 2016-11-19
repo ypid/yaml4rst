@@ -209,14 +209,14 @@ lxc_template_debootstrap_base_packages: [ 'ifupdown', 'locales', 'libui-dialog-p
                                                                    # ]]]
 # .. envvar:: lxc_template_debootstrap_ansible_packages [[[
 #
-# FIXME
+# FIXME(yaml4rst): Describe what this variable is doing.
 lxc_template_debootstrap_ansible_packages: [ 'sudo', 'lsb-release', 'make', 'git',
                                              'python', 'python-apt', 'python-pycurl' ]
 
                                                                    # ]]]
 # .. envvar:: lxc_template_debootstrap_system_packages [[[
 #
-# FIXME
+# FIXME(yaml4rst): Describe what this variable is doing.
 lxc_template_debootstrap_system_packages: [ 'ncurses-term', 'debian-archive-keyring',
                                             'apt-transport-https', 'vim-tiny', 'cron', 'curl',
                                             'openssl', 'ca-certificates' ]
@@ -224,7 +224,7 @@ lxc_template_debootstrap_system_packages: [ 'ncurses-term', 'debian-archive-keyr
                                                                    # ]]]
 # .. envvar:: lxc_template_debootstrap_network_packages [[[
 #
-# FIXME
+# FIXME(yaml4rst): Describe what this variable is doing.
 lxc_template_debootstrap_network_packages: [ 'iputils-ping', 'resolvconf', 'rdnssd' ]
 
                                                                    # ]]]

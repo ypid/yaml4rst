@@ -12,6 +12,12 @@ yaml4rst master - unreleased
 
 .. _yaml4rst master: https://github.com/ypid/yaml4rst/compare/v0.1.2...master
 
+Changed
+~~~~~~~
+
+- Make the FIXME note which yaml4rst adds for missing variable comments more
+  precise. [ypid_]
+
 
 `yaml4rst v0.1.2`_ - 2016-11-18
 -------------------------------
