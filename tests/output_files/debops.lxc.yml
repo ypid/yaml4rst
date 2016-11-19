@@ -403,6 +403,10 @@ lxc__apt_preferences__dependent_list:
                                                                    # ]]]
 # .. envvar:: lxc__ferm__forward [[[
 #
+# ##################
+# Note the missing closing fold above. yaml4rst can not fix everything ;)
+# It could try to fix it, sure, but we can not fix every wrong input.
+#
 # Configuration for the debops.ferm_ role.
 lxc__ferm__forward: True
 
