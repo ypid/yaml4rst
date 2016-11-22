@@ -1,4 +1,4 @@
-Design prinipials
+Design principles
 -----------------
 
 .. include:: /includes/all.rst
@@ -37,8 +37,8 @@ Design prinipials
 
 * Why not do it manually? Hoped to be helpful.
 
-  How long can you work on making a routine task more efficient before you’re
-  spending more time than you save?
+  "How long can you work on making a routine task more efficient before you’re
+  spending more time than you save?"
   (Ref: `xkcd 1205`_)
 
   "I spend a lot of time on this task. I should write a program automating it!"
@@ -46,7 +46,7 @@ Design prinipials
 
   Based on the analysis of git-hours_ it took ypid 118 hours for the initial
   public commit.
-  This is equals 14.75 days (assuming 8 hours a day).
+  This equals 14.75 days (assuming 8 hours a day).
 
   From that it is clear that for ypid, it took much longer to
   automate the task then it would have been to do it manually.
