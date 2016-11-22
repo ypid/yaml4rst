@@ -47,6 +47,8 @@ Design principles
   Based on the analysis of git-hours_ it took ypid 118 hours for the initial
   public commit.
   This equals 14.75 days (assuming 8 hours a day).
+  The time for ongoing maintenance of the program is not included and can be
+  estimated based on the public commits.
 
   From that it is clear that for ypid, it took much longer to
   automate the task then it would have been to do it manually.
