@@ -1,4 +1,6 @@
-sphinx
+# Last release with Python 3.3 support
+sphinx==1.4.9
+
 sphinx_rtd_theme
 sphinx-argparse
 sphinxcontrib-programoutput
