@@ -5,6 +5,7 @@ PYPI_REPO ?= pypi
 NOSETESTS ?= $(shell command -v nosetests3 nosetests | head -n 1)
 NOSE2 ?= $(shell command -v nose2-3 nose2-3.4 | head -n 1)
 SHELL := /bin/bash
+PYTHON_VERSION := $(shell python -c "import sys;t='{v[0]}.{v[1]}'.format(v=list(sys.version_info[:2]));sys.stdout.write(t)")
 
 .PHONY: FORCE_MAKE
 
@@ -55,7 +56,11 @@ check-flake8:
 
 .PHONY: check-pylint
 check-pylint: yaml4rst/
-	pylint "$<" --reports=n --rcfile .pylintrc --disable=C,I,R
+	if [[ "$(PYTHON_VERSION)" == "3.6" ]]; then \
+		echo "Skip test as pylint had issues with this version"; \
+	else \
+		pylint "$<" --reports=n --rcfile .pylintrc --disable=C,I,R; \
+	fi
 
 .PHONY: check-pylint-tests
 check-pylint-tests: tests/
@@ -145,7 +150,11 @@ install-dev: setup.py
 
 .PHONY: docs
 docs:
-	$(MAKE) -C "docs" html
+	if [[ "$(PYTHON_VERSION)" == "3.3" ]]; then \
+		echo "Skip test as sphinx has dropped support for this version"; \
+	else \
+		$(MAKE) -C "docs" html; \
+	fi
 
 .PHONY: release-versionbump
 release-versionbump: yaml4rst/_meta.py CHANGES.rst
