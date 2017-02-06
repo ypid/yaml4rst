@@ -2148,13 +2148,30 @@ class Test(unittest.TestCase):
             # ]]]
         ''').strip().split('\n')
         pprint.pprint(lines)
-        assert_equal(True, self.r._check_ends_with_yaml_block(lines))
-        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-1]))
-        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-2]))
-        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-3]))
-        assert_equal(False, self.r._check_ends_with_yaml_block(lines[:-4]))
-        assert_equal(False, self.r._check_ends_with_yaml_block(lines[:-5]))
         assert_equal(False, self.r._check_ends_with_yaml_block(lines[:-6]))
+        assert_equal(False, self.r._check_ends_with_yaml_block(lines[:-5]))
+        assert_equal(False, self.r._check_ends_with_yaml_block(lines[:-4]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-3]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-2]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-1]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines))
+
+    def test_check_ends_with_multiple_yaml_blocks(self):
+        lines = textwrap.dedent('''
+            # .. envvar:: role_name__2 [[[
+            #
+            # Some documentation for :envvar:`role_name__2`.
+            role_name__2:
+              - filename: 'test'
+                logs:
+                  - 'test'
+                postrotate: |
+                  test
+
+            # ]]]
+        ''').strip().split('\n')
+        pprint.pprint(lines)
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines))
 
     def test_check_ends_with_yaml_block_with_yaml_block_commented_out(self):
         lines = textwrap.dedent('''

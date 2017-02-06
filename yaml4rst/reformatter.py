@@ -781,7 +781,8 @@ class YamlRstReformatter(object):
 
             if leading_spaces < previous_leading_spaces:
                 yaml_block = False
-            elif line.endswith(': |'):
+
+            if line.endswith(': |'):
                 yaml_block = True
             elif re.search(r'^\w+:', line):
                 yaml_block = False

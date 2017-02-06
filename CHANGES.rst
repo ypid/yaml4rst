@@ -18,6 +18,11 @@ Changed
 - Make the FIXME note which yaml4rst adds for missing variable comments more
   precise. [ypid_]
 
+Fixed
+~~~~~
+
+- Fix YAML block detection which lead to wrong indention of closing folds. [ypid_]
+
 
 `yaml4rst v0.1.2`_ - 2016-11-18
 -------------------------------
