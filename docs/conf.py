@@ -72,7 +72,7 @@ master_doc = 'index'
 author = re.search(r'^(?P<name>[^<]+) <(?P<email>.*)>$', yaml4rst.__author__)
 
 project = u'yaml4rst'
-copyright = u'2016, ' + author.group('name')
+copyright = u'2016-2017, ' + author.group('name')
 author = author.group('name')
 
 # The version info for the project you're documenting, acts as replacement for

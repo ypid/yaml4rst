@@ -1,6 +1,6 @@
 PIP_OPTIONS = --user
 RELEASE_OPENPGP_FINGERPRINT ?= C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0
-RELEASE_OPENPGP_CMD ?= gpg
+RELEASE_OPENPGP_CMD ?= $(shell git config --get gpg.program || echo 'gpg')
 PYPI_REPO ?= pypi
 NOSETESTS ?= $(shell command -v nosetests3 nosetests | head -n 1)
 NOSE2 ?= $(shell command -v nose2-3 nose2-3.4 | head -n 1)
@@ -166,11 +166,11 @@ release-sign: distclean build
 	rm -rf dist_signed
 	mv dist dist_signed
 	find dist_signed -type f -regextype posix-extended -regex '^.*(:?\.(:?tar\.gz|whl))$$' -print0 \
-		| xargs --null --max-args=1 $(RELEASE_OPENPGP_CMD) --default-key "$(RELEASE_OPENPGP_FINGERPRINT)" --detach-sign --armor
+		| xargs --null --max-args=1 -I '{}' $(RELEASE_OPENPGP_CMD) --local-user "$(RELEASE_OPENPGP_FINGERPRINT)" --detach-sign --armor --output '{}.asc' '{}'
 	git tag --sign --local-user "$(RELEASE_OPENPGP_FINGERPRINT)" --message "Released version $(shell ./setup.py --version)" "v$(shell ./setup.py --version)"
 
 .PHONY: release-prepare
-release-prepare: check release-versionbump release-sign
+release-prepare: release-versionbump release-sign
 
 .PHONY: pypi-register
 pypi-register: build

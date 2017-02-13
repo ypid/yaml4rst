@@ -5,11 +5,11 @@ Meta information about yaml4rst
 """
 
 # https://stackoverflow.com/a/16084844
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 
 __license__ = 'AGPL-3.0'
 __author__ = 'Robin Schneider <ypid@riseup.net>'
-__copyright__ = 'Copyright (C) 2016 Robin Schneider <ypid@riseup.net>'
+__copyright__ = 'Copyright (C) 2016-2017 Robin Schneider <ypid@riseup.net>'
 
 __all__ = ['__version__', '__license__', '__author__', '__copyright__']
 
