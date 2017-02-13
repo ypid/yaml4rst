@@ -159,7 +159,7 @@ docs:
 .PHONY: release-versionbump
 release-versionbump: yaml4rst/_meta.py CHANGES.rst
 	editor $?
-	git commit --all --message="Release version $(shell ./setup.py --version)"  || :
+	sh -c 'git commit --all --message="Release version $$(./setup.py --version)"'
 
 .PHONY: release-sign
 release-sign: distclean build
