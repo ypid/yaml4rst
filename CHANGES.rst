@@ -10,7 +10,13 @@ and `human-readable changelog <http://keepachangelog.com/en/0.3.0/>`__.
 yaml4rst master - unreleased
 ----------------------------
 
-.. _yaml4rst master: https://github.com/ypid/yaml4rst/compare/v0.1.3...master
+.. _yaml4rst master: https://github.com/ypid/yaml4rst/compare/v0.1.4...master
+
+
+`yaml4rst v0.1.4`_ - 2017-02-21
+-------------------------------
+
+.. _yaml4rst v0.1.4: https://github.com/ypid/yaml4rst/compare/v0.1.3...v0.1.4
 
 Security
 ~~~~~~~~
@@ -20,6 +26,7 @@ Security
 
   Refer to the issue `rename load to dangerous_load <https://bitbucket.org/xi/pyyaml/issues/3/rename-load-to-dangerous_load>`_.
   This has been fixed by switching to ``yaml.safe_load`` (which should really be the default btw). [ypid_]
+
 
 `yaml4rst v0.1.3`_ - 2017-02-14
 -------------------------------
