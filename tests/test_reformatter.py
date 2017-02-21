@@ -12,7 +12,7 @@ from io import StringIO
 import unittest
 # Python 2 does not yet have `mock` which was a separate package back then.
 
-from nose.tools import assert_equal, assert_not_equal, assert_raises_regexp, nottest  # NOQA
+from nose.tools import assert_equal, assert_not_equal, assert_raises_regexp  # NOQA
 from testfixtures import log_capture, tempdir
 
 from yaml4rst.reformatter import YamlRstReformatter, YamlRstReformatterError, LOG
@@ -89,7 +89,7 @@ class Test(unittest.TestCase):
             ),
         )
 
-    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)  # pylint: disable=no-member
     @tempdir()
     def test_read_write_file(self, mock_stdout, d):
         file_path = os.path.join(d.path, 'main.yml')

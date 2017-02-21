@@ -52,7 +52,7 @@ check-docs:
 	$(MAKE) "docs" > /dev/null
 
 .PHONY: check-lint
-check-lint: check-flake8 check-pylint check-travis.yml
+check-lint: check-flake8 check-pylint check-pylint-tests check-travis.yml
 
 .PHONY: check-flake8
 check-flake8:
@@ -63,12 +63,12 @@ check-pylint: yaml4rst/
 	if [[ "$(PYTHON_VERSION)" == "3.6" ]]; then \
 		echo "Skip test as pylint had issues with this version"; \
 	else \
-		pylint "$<" --reports=n --rcfile .pylintrc --disable=C,I,R; \
+		pylint "$<" --reports=n --rcfile .pylintrc --disable=locally-disabled,missing-docstring,too-many-statements,too-many-locals,too-many-branches,too-many-instance-attributes,too-many-boolean-expressions,too-many-arguments; \
 	fi
 
 .PHONY: check-pylint-tests
 check-pylint-tests: tests/
-	pylint "$<" --reports=n --rcfile .pylintrc --disable=protected-access,missing-docstring,invalid-name,too-many-public-methods,too-many-lines
+	pylint "$<" --reports=n --rcfile .pylintrc --disable=protected-access,missing-docstring,invalid-name,too-many-public-methods,too-many-lines,locally-disabled,no-name-in-module
 
 .PHONY: check-radon
 check-radon: yaml4rst/
