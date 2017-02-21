@@ -42,7 +42,6 @@ remove-pre-commit-hook:
 .PHONY: check
 check: check-unit-tests-with-coverage check-integration-tests check-docs check-lint
 
-# TODO
 .PHONY: check-tox
 check-tox:
 	tox
