@@ -109,7 +109,7 @@ class YamlRstReformatter(object):
 
             # Since this parser is very rudimentary, we check at the beginning
             # if the file we got is even valid YAML.
-            yaml.load(self.get_content())
+            yaml.safe_load(self.get_content())
 
     def get_content(self):
         """Return one string containing all lines."""
@@ -147,7 +147,7 @@ class YamlRstReformatter(object):
 
         # Just to ensure that we did not make a mistake.
         self._check_folds()
-        yaml.load(self.get_content())
+        yaml.safe_load(self.get_content())
 
     def write_file(self, output_file):
         """Write the instance lines to the given output file path and save its content for later processing."""

@@ -12,6 +12,14 @@ yaml4rst master - unreleased
 
 .. _yaml4rst master: https://github.com/ypid/yaml4rst/compare/v0.1.3...master
 
+Security
+~~~~~~~~
+
+- The default ``yaml.load`` method from PyYAML which is used to validate the input YAML file is unsafe.
+  Using a maliciously crafted input YAML file, arbitrary code could have been executed when running ``yaml4rst``.
+
+  Refer to the issue `rename load to dangerous_load <https://bitbucket.org/xi/pyyaml/issues/3/rename-load-to-dangerous_load>`_.
+  This has been fixed by switching to ``yaml.safe_load`` (which should really be the default btw). [ypid_]
 
 `yaml4rst v0.1.3`_ - 2017-02-14
 -------------------------------
