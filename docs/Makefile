@@ -229,7 +229,7 @@ spelling:
 	$(SPHINXBUILD) -b spelling $(ALLSPHINXOPTS) $(BUILDDIR)/spelling
 
 yaml4rst.rst: ../yaml4rst
-	rm "$@"
+	rm -f "$@"
 	sphinx-apidoc -o . "$<" --no-toc
 
 includes/global.rst: ~/.ansible/ypid-ansible-common/docs/debops/docs/includes/global.rst

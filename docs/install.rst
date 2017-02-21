@@ -12,7 +12,7 @@ You can install ``yaml4rst`` by invoking the following commands:
    mkdir --parent /tmp/yaml4rst && cd /tmp/yaml4rst
    wget -r -nd -l 1 https://pypi.python.org/pypi/yaml4rst --accept-regex '^https://(test)?pypi\.python\.org/packages/.*\.whl.*'
    current_release="$(find . -type f -name '*.whl' | sort | tail -n 1)"
-   gpg -v "${current_release}.asc" && pip3 install "${current_release}"
+   gpg --verify "${current_release}.asc" && pip3 install "${current_release}"
 
 Refer to `Verifying PyPI and Conda Packages`_ for more details. Note that this might pull down dependencies in an unauthenticated way! You might want to install the dependencies yourself beforehand.
 

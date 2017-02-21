@@ -1,3 +1,6 @@
+## vim: foldmarker={{{,}}} foldlevel=0 foldmethod=marker spell:
+
+## Variables {{{
 PIP_OPTIONS = --user
 RELEASE_OPENPGP_FINGERPRINT ?= C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0
 RELEASE_OPENPGP_CMD ?= $(shell git config --get gpg.program || echo 'gpg')
@@ -6,6 +9,7 @@ NOSETESTS ?= $(shell command -v nosetests3 nosetests | head -n 1)
 NOSE2 ?= $(shell command -v nose2-3 nose2-3.4 | head -n 1)
 SHELL := /bin/bash
 PYTHON_VERSION := $(shell python -c "import sys;t='{v[0]}.{v[1]}'.format(v=list(sys.version_info[:2]));sys.stdout.write(t)")
+## }}}
 
 .PHONY: FORCE_MAKE
 
