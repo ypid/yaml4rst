@@ -39,6 +39,13 @@ remove-pre-commit-hook:
 ## }}}
 
 ## check {{{
+.PHONY: check-quick
+check-quick: check-unit-tests check-docs check-lint-quick
+
+## Subset of `check`
+.PHONY: check-precommit-hook
+check-precommit-hook: check-unit-tests-with-coverage check-integration-tests check-docs check-lint-quick
+
 .PHONY: check
 check: check-unit-tests-with-coverage check-integration-tests check-docs check-lint
 
@@ -50,8 +57,11 @@ check-tox:
 check-docs:
 	$(MAKE) "docs" > /dev/null
 
+.PHONY: check-lint-quick
+check-lint-quick: check-flake8 check-travis.yml
+
 .PHONY: check-lint
-check-lint: check-flake8 check-pylint check-pylint-tests check-travis.yml
+check-lint: check-lint-quick check-pylint check-pylint-tests
 
 .PHONY: check-flake8
 check-flake8:
