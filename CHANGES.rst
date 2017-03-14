@@ -12,6 +12,11 @@ and `human-readable changelog <http://keepachangelog.com/en/0.3.0/>`__.
 
 .. _yaml4rst master: https://github.com/ypid/yaml4rst/compare/v0.1.4...master
 
+Fixed
+~~~~~
+
+- Fix RST section level detection for folded section. [ypid_]
+
 
 `yaml4rst v0.1.4`_ - 2017-02-21
 -------------------------------

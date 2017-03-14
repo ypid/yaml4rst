@@ -2721,3 +2721,67 @@ class Test(unittest.TestCase):
         self.r._lines = deepcopy(expected_output)
         print('#######\n' + self.r.get_content() + '\n#######')
         assert_equal(expected_output, self.r._lines)
+
+    def test_reformat_fold_and_no_fold(self):
+        self.r._lines = textwrap.dedent("""
+            ---
+            # .. vim: foldmarker=[[[,]]]:foldmethod=marker
+
+            # role_owner.role_name default variables [[[
+            # ==========================================
+
+            # .. contents:: Sections
+            #    :local:
+            #
+            # .. include:: includes/all.rst
+
+
+            # ------------------------------------
+            #   Global options
+            # ------------------------------------
+
+            # .. envvar:: role_name__public_dns
+            #
+            # Enable or disable access to the local DNS from upstream networks. You can
+            # publish your subdomain in the public DNS by delegating it in your zone
+            # configuration.
+            role_name__public_dns: False
+                                                                               # ]]]
+        """).strip().split('\n')
+
+        expected_output = textwrap.dedent('''
+            ---
+            # .. vim: foldmarker=[[[,]]]:foldmethod=marker
+
+            # role_owner.role_name default variables [[[
+            # ==========================================
+
+            # .. contents:: Sections
+            #    :local:
+            #
+            # .. include:: includes/all.rst
+
+
+            # Global options [[[
+            # ------------------
+
+            # .. envvar:: role_name__public_dns [[[
+            #
+            # Enable or disable access to the local DNS from upstream networks. You can
+            # publish your subdomain in the public DNS by delegating it in your zone
+            # configuration.
+            role_name__public_dns: False
+                                                                               # ]]]
+                                                                               # ]]]
+                                                                               # ]]]
+        ''').strip().split('\n')
+
+        self.r.reformat()
+
+        pprint.pprint(self.r._sections)
+        print('#######\n' + self.r.get_content() + '\n#######')
+        assert_equal(expected_output, self.r._lines)
+
+        self.r._lines = deepcopy(expected_output)
+        print('#######\n' + self.r.get_content() + '\n#######')
+        assert_equal(expected_output, self.r._lines)

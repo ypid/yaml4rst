@@ -119,6 +119,7 @@ class YamlRstReformatter(object):
         """Process (check/lint/reformat) the instance lines."""
         self._check_folds()
         _, self._sections = self._get_sections_for_lines(self._lines, 0, section_lines=[])
+        self._section_levels = list(reversed(self._section_levels))  # Reverse recursion
         if LOG.isEnabledFor(logging.DEBUG):
             LOG.debug('sections after _get_sections_for_lines:\n{}'.format(
                 pprint.pformat(self._sections),
@@ -369,6 +370,9 @@ class YamlRstReformatter(object):
                     new_section['subsections'] = subsections
                     subsections = []
                 if len(section_lines) > 0:
+                    _re_heading_chars = self._RE_HEADING_CHARS.search(section_lines[0])
+                    if 'fold_name' in new_section and _re_heading_chars:
+                        self._get_section_level(_re_heading_chars.group('heading_char'))
                     new_section['lines'] = section_lines
                     section_lines = []
                 sections.append(new_section)
