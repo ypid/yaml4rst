@@ -374,7 +374,7 @@ class YamlRstReformatter(object):
                 sections.append(new_section)
                 LOG.debug('sections: {}'.format(sections))
                 new_section = {}
-                if 'fold_name' not in new_section and fold['name'] is not None:
+                if fold['name'] is not None:
                     new_section['fold_name'] = fold['name']
                 if inside_fold:
                     break
