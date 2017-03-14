@@ -108,8 +108,8 @@ check-integration-tests: prepare-real-data check-real-data
 prepare-real-data: ./tests/raw_input_files
 	for raw_input_file in "$<"/*; do \
 		echo "Preparing $$raw_input_file"; \
-		io_file="./tests/input_files/$$(basename "$$raw_input_file")"; \
-		sed --regexp-extended '/^(\s*#\s*(\.{2})?\s*.*?)\s*[[({]{3}[[:digit:]]*$$/d;' "$$raw_input_file" > "$$io_file"; \
+		in_file="./tests/input_files/$$(basename "$$raw_input_file")"; \
+		sed --regexp-extended '/^(\s*#\s*(\.{2})?\s*.*?)\s*[[({]{3}[[:digit:]]*$$/d;' "$$raw_input_file" > "$$in_file"; \
 	done
 
 .PHONY: check-real-data
