@@ -1672,7 +1672,6 @@ class Test(unittest.TestCase):
 
     def test_get_section_level(self):
         assert_equal(0, self.r._get_section_level('='))
-        assert_equal(0, self.r._get_section_level('='))
         assert_equal(1, self.r._get_section_level('-'))
         assert_equal(0, self.r._get_section_level('='))
         assert_equal(2, self.r._get_section_level('~'))
