@@ -73,6 +73,16 @@ Known limitations
   is used for integration testing. Note that this is not perfect as can be seen
   on the ``debops.apt_install`` test case.
 
+Repository
+----------
+
+* `GitHub <https://github.com/ypid/yaml4rst>`_ (primary repo with issue tracker)
+
+Documentation
+-------------
+
+* `Read the Docs <https://yaml4rst.readthedocs.io/en/latest/>`_
+
 Authors
 -------
 
