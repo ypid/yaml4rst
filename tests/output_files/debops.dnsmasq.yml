@@ -282,7 +282,7 @@ dnsmasq__group_options: ''
 # Additional options passed as a YAML text block.
 # This variable is intended to be used in the inventory of hosts.
 dnsmasq__host_options: ''
-
+                                                                   # ]]]
                                                                    # ]]]
 # Configuration for other Ansible roles [[[
 # -----------------------------------------
@@ -351,7 +351,6 @@ dnsmasq__apparmor__local_dependent_config:
     - comment: 'Allow dnsmasq to read /usr/share/dnsmasq-base/trust-anchors.conf provided by dnsmasq-base'
       rules:
         - '/usr/share/dnsmasq-base/* r'
-                                                                   # ]]]
                                                                    # ]]]
                                                                    # ]]]
                                                                    # ]]]

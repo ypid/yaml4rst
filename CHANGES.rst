@@ -17,6 +17,9 @@ Fixed
 
 - Fix RST section level detection for folded section. [ypid_]
 
+- Include folds when following a RST section instead of closing the section
+  without the folds included. [ypid_]
+
 
 `yaml4rst v0.1.4`_ - 2017-02-21
 -------------------------------

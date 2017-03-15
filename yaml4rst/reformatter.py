@@ -132,7 +132,13 @@ class YamlRstReformatter(object):
             ))
         self._sort_section_levels(self._sections)
         if LOG.isEnabledFor(logging.DEBUG):
-            LOG.debug('sections after _sort_section_level:\n{}'.format(
+            LOG.debug('sections after _sort_section_levels:\n{}'.format(
+                pprint.pformat(self._sections),
+            ))
+        self._set_section_levels(self._sections)
+        self._sort_section_levels_equal(self._sections)
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug('sections after _sort_section_levels_equal:\n{}'.format(
                 pprint.pformat(self._sections),
             ))
         self._add_fixmes(self._sections)
@@ -532,6 +538,26 @@ class YamlRstReformatter(object):
             self._section_levels.append(heading_char)
             return len(self._section_levels) - 1
 
+    def _set_section_levels(self, sections):
+
+        sec_ind = -1
+        while True:
+            sec_ind += 1
+            try:
+                section = sections[sec_ind]
+            except IndexError:
+                LOG.debug("break")
+                break
+
+            if 'subsections' in section:
+                self._set_section_levels(section['subsections'])
+
+            if 'section_level' not in section and len(section['lines']) > 0:
+                _re_heading_chars = self._RE_HEADING_CHARS.search(section['lines'][0])
+                if _re_heading_chars:
+                    section['section_level'] = self._get_section_level(
+                        _re_heading_chars.group('heading_char'))
+
     def _sort_section_levels(self, sections, section_level=0):
 
         while True:
@@ -549,9 +575,11 @@ class YamlRstReformatter(object):
                 if 'subsections' in section:
                     self._sort_section_levels(section['subsections'], section_level=section_level + 1)
 
-                if section.get('section_level', section_level) > section_level:
-                    LOG.debug("Moving section {} into subsection of previous section".format(
-                        section
+                if section.get('section_level', section_level) is not None \
+                        and section.get('section_level', section_level) > section_level:
+                    LOG.debug("Moving section {} into subsection of previous section {}".format(
+                        section,
+                        sections[sec_ind-1],
                     ))
                     sections[sec_ind-1].setdefault('subsections', [])
                     sections[sec_ind-1]['subsections'].append(section)
@@ -561,6 +589,34 @@ class YamlRstReformatter(object):
 
             if done:
                 break
+
+    def _sort_section_levels_equal(self, sections):
+
+        sec_ind = -1
+        while True:
+            sec_ind += 1
+            try:
+                section = sections[sec_ind]
+            except IndexError:
+                LOG.debug("break")
+                break
+
+            section_level = section.get('section_level', -1)
+            if 'subsections' in section:
+                subsec_ind = -1
+                while True:
+                    subsec_ind += 1
+                    try:
+                        subsection = section['subsections'][subsec_ind]
+                    except IndexError:
+                        LOG.debug("break")
+                        break
+
+                    if section_level == subsection.get('section_level', -2):
+                        sections.insert(sec_ind + 1, deepcopy(subsection))
+                        del section['subsections'][subsec_ind]
+
+                self._sort_section_levels_equal(section['subsections'])
 
     def _reformat_legacy_rst_sections(self, sections):
         """Reformat RST sections and generate folds out of them.
@@ -793,7 +849,7 @@ class YamlRstReformatter(object):
 
         return yaml_block
 
-    def _reformat_variables(self, sections):
+    def _reformat_variables(self, sections, parent_section_level=None):
         if LOG.isEnabledFor(logging.DEBUG):
             LOG.debug('Called _reformat_variables with sections:\n{}'.format(
                 pprint.pformat(sections),
@@ -853,6 +909,8 @@ class YamlRstReformatter(object):
                 new_section['fold_name'] = '.. envvar:: {var_name}'.format(
                     var_name=var_name,
                 )
+                if parent_section_level is not None:
+                    new_section['section_level'] = None
 
                 next_entry_start_ind = get_first_match(
                     r'^[^ ]',
@@ -897,4 +955,4 @@ class YamlRstReformatter(object):
                         section.pop('subsections', None)
 
             if 'subsections' in section:
-                self._reformat_variables(section['subsections'])
+                self._reformat_variables(section['subsections'], parent_section_level=section.get('section_level'))

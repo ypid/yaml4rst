@@ -2785,3 +2785,65 @@ class Test(unittest.TestCase):
         self.r._lines = deepcopy(expected_output)
         print('#######\n' + self.r.get_content() + '\n#######')
         assert_equal(expected_output, self.r._lines)
+
+    def test_reformat_fold_and_no_fold_nested(self):
+        self.r._lines = textwrap.dedent("""
+            ---
+            # .. vim: foldmarker=[[[,]]]:foldmethod=marker
+
+            # role_owner.role_name default variables [[[
+            # ==========================================
+
+            # .. contents:: Sections
+            #    :local:
+            #
+            # .. include:: includes/all.rst
+
+
+            # ------------------------------------
+            #   Global options
+            # ------------------------------------
+
+            # test
+
+            # Configuration for other Ansible roles [[[
+            # -----------------------------------------
+                                                                               # ]]]
+                                                                               # ]]]
+        """).strip().split('\n')
+
+        # OK, this is not quite what you would expect.
+        expected_output = textwrap.dedent('''
+            ---
+            # .. vim: foldmarker=[[[,]]]:foldmethod=marker
+
+            # role_owner.role_name default variables [[[
+            # ==========================================
+
+            # .. contents:: Sections
+            #    :local:
+            #
+            # .. include:: includes/all.rst
+
+
+            # Global options [[[
+            # ------------------
+
+            # test
+
+                                                                               # ]]]
+            # Configuration for other Ansible roles [[[
+            # -----------------------------------------
+                                                                               # ]]]
+                                                                               # ]]]
+        ''').strip().split('\n')
+
+        self.r.reformat()
+
+        pprint.pprint(self.r._sections)
+        print('#######\n' + self.r.get_content() + '\n#######')
+        assert_equal(expected_output, self.r._lines)
+
+        self.r._lines = deepcopy(expected_output)
+        print('#######\n' + self.r.get_content() + '\n#######')
+        assert_equal(expected_output, self.r._lines)
