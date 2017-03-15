@@ -30,7 +30,7 @@ Security
 ~~~~~~~~
 
 - The default ``yaml.load`` method from PyYAML which is used to validate the input YAML file is unsafe.
-  As a result ``yaml4rst`` would have executed any arbitrary code given in the YAML input file.
+  As a result ``yaml4rst`` would have executed arbitrary code given in the YAML input file.
 
   Refer to the issue `Make load safe_load <https://github.com/yaml/pyyaml/issues/5>`_.
   This has been fixed by switching to ``yaml.safe_load``. [ypid_]
