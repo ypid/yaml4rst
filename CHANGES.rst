@@ -15,10 +15,11 @@ and `human-readable changelog <http://keepachangelog.com/en/0.3.0/>`__.
 Fixed
 ~~~~~
 
-- Fix RST section level detection for folded section. [ypid_]
+- Fix RST section level detection for folded sections. [ypid_]
 
-- Include folds when following a RST section instead of closing the section
-  without the folds included. [ypid_]
+- End fold started by an unfolded RST section when a new RST section with the
+  same section level begins instead of including the following RST section in
+  the fold. [ypid_]
 
 
 `yaml4rst v0.1.4`_ - 2017-02-21
