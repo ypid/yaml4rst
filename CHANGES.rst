@@ -12,6 +12,14 @@ and `human-readable changelog <http://keepachangelog.com/en/0.3.0/>`__.
 
 .. _yaml4rst master: https://github.com/ypid/yaml4rst/compare/v0.1.5...master
 
+Fixed
+~~~~~
+
+- Fix YAML block detection and make it more robust. Previously, when the
+  indention of YAML block content changed from one line to the next, it might
+  not be recognized as YAML block leading to wrong YAML comment inclusion which
+  became part of the YAML block comment. [ypid_]
+
 
 `yaml4rst v0.1.5`_ - 2017-03-16
 -------------------------------

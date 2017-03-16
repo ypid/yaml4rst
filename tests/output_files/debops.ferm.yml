@@ -416,7 +416,7 @@ ferm__rules_log:
               {{ ferm__log_target }};
       }
 
-                                                                   # ]]]
+# ]]]
 # .. envvar:: ferm__rules_filter_loopback [[[
 #
 # Allow connections from ``localhost``.

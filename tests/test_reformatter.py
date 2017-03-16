@@ -2136,6 +2136,23 @@ class Test(unittest.TestCase):
             self.r._lines,
         )
 
+    def test_check_ends_with_yaml_block_single(self):
+        assert_equal(True, self.r._check_ends_with_yaml_block(
+            textwrap.dedent('''
+                paths: |
+                   {{ [
+            ''').strip().split('\n')))
+        assert_equal(True, self.r._check_ends_with_yaml_block(
+            textwrap.dedent('''
+                paths: |
+                  {{ [
+            ''').strip().split('\n')))
+        assert_equal(False, self.r._check_ends_with_yaml_block(
+            textwrap.dedent('''
+                paths: |
+                 {{ [
+            ''').strip().split('\n')))
+
     def test_check_ends_with_yaml_block(self):
         lines = textwrap.dedent('''
             # .. envvar:: role_name__2 [[[
@@ -2150,6 +2167,40 @@ class Test(unittest.TestCase):
         assert_equal(False, self.r._check_ends_with_yaml_block(lines[:-6]))
         assert_equal(False, self.r._check_ends_with_yaml_block(lines[:-5]))
         assert_equal(False, self.r._check_ends_with_yaml_block(lines[:-4]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-3]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-2]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-1]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines))
+
+    def test_check_ends_with_yaml_block_complex(self):
+        lines = textwrap.dedent('''
+            # .. envvar:: tinc__persistent_paths__dependent_paths [[[
+            #
+            # Configuration for the debops.persistent_paths_ Ansible role.
+            tinc__persistent_paths__dependent_paths:
+
+              '50_debops_tinc':
+                by_role: 'debops.tinc'
+                paths: |
+                  {{ [
+                    '/etc/systemd/system/multi-user.target.wants/tinc.service',
+                  ] + ((ansible_local.tinc.networks.keys() | map("regex_replace", "^", "/etc/default/tinc-") | list)
+                       if (ansible_local|d() and ansible_local.tinc|d() and
+                           ansible_local.tinc.networks|d())
+                       else [])
+                  }}
+                                                                               # ]]]
+                                                                               # ]]]
+        ''').strip().split('\n')
+        pprint.pprint(lines)
+        assert_equal(False, self.r._check_ends_with_yaml_block(lines[:-12]))
+        assert_equal(False, self.r._check_ends_with_yaml_block(lines[:-11]))
+        assert_equal(False, self.r._check_ends_with_yaml_block(lines[:-10]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-8]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-7]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-6]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-5]))
+        assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-4]))
         assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-3]))
         assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-2]))
         assert_equal(True, self.r._check_ends_with_yaml_block(lines[:-1]))

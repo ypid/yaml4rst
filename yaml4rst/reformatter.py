@@ -829,23 +829,24 @@ class YamlRstReformatter(object):
 
     @staticmethod
     def _check_ends_with_yaml_block(lines):
-        previous_leading_spaces = 0
+        leading_spaces_at_yaml_block_start = None
         leading_spaces = 0
         yaml_block = False
         for line in lines:
             if line in ['', '# ]]]']:
                 continue
 
-            previous_leading_spaces = leading_spaces
             leading_spaces = len(line) - len(line.lstrip(' '))
 
-            if leading_spaces < previous_leading_spaces:
+            if yaml_block and leading_spaces < leading_spaces_at_yaml_block_start+2:
                 yaml_block = False
 
             if line.endswith(': |'):
                 yaml_block = True
+                leading_spaces_at_yaml_block_start = leading_spaces
             elif re.search(r'^\w+:', line):
                 yaml_block = False
+                leading_spaces_at_yaml_block_start = None
 
         return yaml_block
 
