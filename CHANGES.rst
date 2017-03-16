@@ -10,7 +10,13 @@ and `human-readable changelog <http://keepachangelog.com/en/0.3.0/>`__.
 `yaml4rst master`_ - unreleased
 -------------------------------
 
-.. _yaml4rst master: https://github.com/ypid/yaml4rst/compare/v0.1.4...master
+.. _yaml4rst master: https://github.com/ypid/yaml4rst/compare/v0.1.5...master
+
+
+`yaml4rst v0.1.5`_ - 2017-03-16
+-------------------------------
+
+.. _yaml4rst v0.1.5: https://github.com/ypid/yaml4rst/compare/v0.1.4...v0.1.5
 
 Fixed
 ~~~~~
