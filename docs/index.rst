@@ -13,4 +13,5 @@ Contents:
    design
    yaml4rst
    contributing
+   copyright
    changes

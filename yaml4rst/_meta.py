@@ -13,12 +13,12 @@ __copyright__ = 'Copyright (C) 2016-2017 Robin Schneider <ypid@riseup.net>'
 
 __all__ = ['__version__', '__license__', '__author__', '__copyright__']
 
-# This program is free software: you can redistribute it and/or modify
+# yaml4rst is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, version 3 of the
 # License.
 #
-# This program is distributed in the hope that it will be useful,
+# yaml4rst is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
