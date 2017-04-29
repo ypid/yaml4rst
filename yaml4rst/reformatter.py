@@ -333,7 +333,7 @@ class YamlRstReformatter(object):
             ))
 
             if fold['change'] == 0:
-                if len(subsections) > 0 and line != '':
+                if subsections and line != '':
                     start_ind = ind
                     while True:
                         ind += 1
@@ -360,7 +360,7 @@ class YamlRstReformatter(object):
                 section_lines.append(line)
                 LOG.debug('section_lines: {}'.format(section_lines))
             elif fold['change'] == +1:
-                if 'fold_name' not in new_section and len(strip_list(section_lines)) == 0:
+                if 'fold_name' not in new_section and not strip_list(section_lines):
                     new_section['fold_name'] = fold['name']
 
             if fold_level > 1 and fold['change'] == +1:
@@ -379,14 +379,14 @@ class YamlRstReformatter(object):
                 subsections.extend(new_subsections)
 
             eof = ind+1 not in range(len(input_lines))
-            if (fold['change'] == -1 and (len(section_lines) > 0 or len(subsections) > 0) or
+            if (fold['change'] == -1 and (section_lines or subsections) or
                     fold['change'] == 1 and 'fold_name' not in new_section) or eof:
                 section_lines = strip_list(section_lines)
                 LOG.debug('section_lines (strip): {}'.format(section_lines))
-                if len(subsections) > 0:
+                if subsections:
                     new_section['subsections'] = subsections
                     subsections = []
-                if len(section_lines) > 0:
+                if section_lines:
                     _re_heading_chars = self._RE_HEADING_CHARS.search(section_lines[0])
                     if 'fold_name' in new_section and _re_heading_chars:
                         self._get_section_level(_re_heading_chars.group('heading_char'))
@@ -400,14 +400,13 @@ class YamlRstReformatter(object):
                 if inside_fold:
                     break
 
-        if len(sections) == 0:
+        if not sections:
             LOG.debug("return lines as they where passed: {}".format(input_lines))
             return ind, [{
                 'lines': input_lines,
             }]
-        else:
-            LOG.debug("return sections: {}".format(sections))
-            return ind, sections
+        LOG.debug("return sections: {}".format(sections))
+        return ind, sections
 
     def _get_lines_from_sections(self, sections):
         lines = []
@@ -422,7 +421,7 @@ class YamlRstReformatter(object):
                 closing_folds += 1
                 lines.append(opening_fold)
 
-            if len(section.get('lines', [])) > 0:
+            if section.get('lines', []):
                 section_lines = list(section['lines'])
                 if 'fold_name' in section:
                     if section_lines[0] != '#':
@@ -457,7 +456,7 @@ class YamlRstReformatter(object):
             if 'subsections' in section:
                 self._add_fixmes(section['subsections'])
 
-            if len(section.get('lines', [])) == 0:
+            if not section.get('lines', []):
                 continue
 
             if not section.get('fold_name', '').startswith('.. '):
@@ -545,9 +544,8 @@ class YamlRstReformatter(object):
     def _get_section_level(self, heading_char):
         if heading_char in self._section_levels:
             return self._section_levels.index(heading_char)
-        else:
-            self._section_levels.append(heading_char)
-            return len(self._section_levels) - 1
+        self._section_levels.append(heading_char)
+        return len(self._section_levels) - 1
 
     def _set_section_levels(self, sections):
 
@@ -563,7 +561,7 @@ class YamlRstReformatter(object):
             if 'subsections' in section:
                 self._set_section_levels(section['subsections'])
 
-            if 'section_level' not in section and len(section['lines']) > 0:
+            if 'section_level' not in section and section['lines']:
                 _re_heading_chars = self._RE_HEADING_CHARS.search(section['lines'][0])
                 if _re_heading_chars:
                     section['section_level'] = self._get_section_level(
@@ -643,7 +641,7 @@ class YamlRstReformatter(object):
             except IndexError:
                 LOG.debug("break")
                 break
-            if len(section.get('lines', [])) == 0:
+            if not section.get('lines', []):
                 continue
 
             LOG.debug('sec_ind: {}, section: {}'.format(sec_ind, section['lines']))
@@ -713,7 +711,7 @@ class YamlRstReformatter(object):
                     heading_char = _re_heading_chars.group('heading_char')
                     heading_char_inds.append(ind)
                     state = 'heading'
-                elif _re_heading and (state == 'heading' or len(heading_char_inds) == 0):
+                elif _re_heading and (state == 'heading' or not heading_char_inds):
                     heading = _re_heading.group('heading')
                     LOG.debug('_re_heading: {}'.format(heading))
                     heading_ind = ind
@@ -722,7 +720,7 @@ class YamlRstReformatter(object):
                     state = 'before'
 
                 eof = ind+1 not in range(len(section['lines']))
-                if len(heading_char_inds) >= 1 and heading is not None and (eof or state == 'before'):
+                if heading_char_inds and heading is not None and (eof or state == 'before'):
                     section_start = min([heading_ind] + heading_char_inds[1:])
                     LOG.debug('Deleting lines at: {}'.format([heading_ind] + heading_char_inds[1:]))
                     ind_offset = 0

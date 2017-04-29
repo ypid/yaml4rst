@@ -39,8 +39,7 @@ def get_first_match(pattern, strings, ind_offset=None, limit_pattern=None, break
         if (_re is not None) == match:
             if ind_offset is not None:
                 return string_ind + ind_offset
-            else:
-                return _re
+            return _re
         if limit_pattern is not None and not re.search(limit_pattern, string):
             #  LOG.debug("Limit pattern matched")
             return None
@@ -54,10 +53,8 @@ def get_last_match(pattern, strings, ind_offset=None, limit_pattern=None, match=
         ind = get_first_match(pattern, reversed(strings), ind_offset=0, limit_pattern=limit_pattern, match=match)
         if ind is None:
             return None
-        else:
-            return ind_offset - ind - 1
-    else:
-        return get_first_match(pattern, reversed(strings), limit_pattern=limit_pattern, match=match)
+        return ind_offset - ind - 1
+    return get_first_match(pattern, reversed(strings), limit_pattern=limit_pattern, match=match)
 
 
 def insert_list(base_list, ind, add_list):
