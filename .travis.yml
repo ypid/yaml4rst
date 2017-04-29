@@ -11,6 +11,8 @@ python:
 
 install:
   - "pip install -e '.[test]'"
+  - "yaml4rst --help"
+  - "yaml4rst --version"
   - "pip install -r docs/requirements.txt"
 
 script:
