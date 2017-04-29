@@ -96,7 +96,7 @@ check-unit-tests: check-nose
 
 .PHONY: check-unit-tests-with-coverage
 check-unit-tests-with-coverage:
-	$(NOSETESTS) --with-coverage --cover-package yaml4rst --cover-branches --cover-erase --cover-min-percentage=100
+	$(NOSETESTS) --with-coverage --cover-package yaml4rst --cover-branches --cover-erase --cover-min-percentage=100 --cover-html --cover-html-dir tests/coverage-report
 
 .PHONY: check-integration-tests
 check-integration-tests: prepare-real-data check-real-data

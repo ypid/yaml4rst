@@ -146,6 +146,7 @@ def main():
 
             reformatter.write_file(
                 input_file if args.in_place else args.output_file[ind],
+                only_if_changed=args.in_place,
             )
         except YamlRstReformatterError as err:
             LOG.debug(traceback.format_exc())

@@ -95,6 +95,7 @@ class YamlRstReformatter(object):
             self._config.update(config)
         self._auto_complete_config()
 
+        self._original_lines = []
         self._lines = []
         self._sections = []
         self._section_levels = []
@@ -105,7 +106,8 @@ class YamlRstReformatter(object):
     def read_file(self, input_file):
         """Read the given input file path and save its content for later processing."""
         with open(input_file, 'r') as file_fh:
-            self._lines = [l.rstrip() for l in file_fh]
+            self._original_lines = [l.rstrip() for l in file_fh]
+            self._lines = deepcopy(self._original_lines)
 
             # Since this parser is very rudimentary, we check at the beginning
             # if the file we got is even valid YAML.
@@ -156,13 +158,22 @@ class YamlRstReformatter(object):
         self._check_folds()
         yaml.safe_load(self.get_content())
 
-    def write_file(self, output_file):
+    def is_input_and_output_different(self):
+        for i, j in zip(self._original_lines, self._lines):
+            if i != j:
+                #  LOG.debug("{} != {}".format(i, j))
+                return True
+        return False
+
+    def write_file(self, output_file, only_if_changed=False):
         """Write the instance lines to the given output file path and save its content for later processing."""
         if output_file == '-':
             sys.stdout.write(self.get_content() + '\n')
-        else:
+        elif (only_if_changed and self.is_input_and_output_different()) or not only_if_changed:
             with open(output_file, 'w', encoding='utf-8') as output_fh:
                 output_fh.write(self.get_content() + '\n')
+        else:
+            LOG.debug("Nothing to update.")
 
     def _auto_complete_config(self):
         if 'ansible_full_role_name' in self._config:

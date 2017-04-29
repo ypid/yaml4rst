@@ -99,10 +99,10 @@ class Test(unittest.TestCase):
             role_name__2: []
         """).strip()
 
-        d.write('main.yml', input_data, 'utf-8')
+        d.write('main.yml', input_data + '\n', 'utf-8')
         self.r.read_file(file_path)
         assert_equal(input_data, self.r.get_content())
-        self.r.write_file(file_path)
+        self.r.write_file(file_path, only_if_changed=True)
         assert_equal(mock_stdout.getvalue(), '')
         self.r.write_file('-')
         assert_equal(mock_stdout.getvalue(), self.r.get_content() + '\n')
@@ -111,7 +111,7 @@ class Test(unittest.TestCase):
 
         self.r.reformat()
         assert_not_equal(input_data, self.r.get_content(), input_data)
-        self.r.write_file(file_path)
+        self.r.write_file(file_path, only_if_changed=True)
         assert_not_equal(d.read('main.yml', 'utf-8'), input_data + '\n')
         assert_not_equal(input_data, self.r.get_content(), input_data)
 

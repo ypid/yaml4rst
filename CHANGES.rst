@@ -12,6 +12,12 @@ and `human-readable changelog <http://keepachangelog.com/en/0.3.0/>`__.
 
 .. _yaml4rst master: https://github.com/ypid/yaml4rst/compare/v0.1.5...master
 
+Added
+~~~~~
+
+- Only write output file in ``--in-place`` mode when the input and generated
+  output actually differ to save write cycles :) [ypid_]
+
 Fixed
 ~~~~~
 

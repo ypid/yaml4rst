@@ -1,3 +1,4 @@
+tests/coverage-report/
 dist_signed/
 # *.check_idempotency
 
