@@ -42,7 +42,7 @@ Design principles
   (Ref: `xkcd 1205`_)
 
   "I spend a lot of time on this task. I should write a program automating it!"
-  (Ref: `xkcd 1205`_)
+  (Ref: `xkcd 1319`_)
 
   Based on the analysis of git-hours_ it took ypid 118 hours for the initial
   public commit.
