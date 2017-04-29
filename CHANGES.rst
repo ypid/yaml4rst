@@ -10,7 +10,13 @@ and `human-readable changelog <http://keepachangelog.com/en/0.3.0/>`__.
 `yaml4rst master`_ - unreleased
 -------------------------------
 
-.. _yaml4rst master: https://github.com/ypid/yaml4rst/compare/v0.1.5...master
+.. _yaml4rst master: https://github.com/ypid/yaml4rst/compare/v0.1.6...master
+
+
+`yaml4rst v0.1.6`_ - 2017-04-29
+-------------------------------
+
+.. _yaml4rst v0.1.6: https://github.com/ypid/yaml4rst/compare/v0.1.5...v0.1.6
 
 Added
 ~~~~~
@@ -24,7 +30,7 @@ Fixed
 - Fix YAML block detection and make it more robust. Previously, when the
   indention of YAML block content changed from one line to the next, it might
   not be recognized as YAML block leading to wrong YAML comment inclusion which
-  became part of the YAML block comment. [ypid_]
+  became part of the YAML block string. [ypid_]
 
 
 `yaml4rst v0.1.5`_ - 2017-03-16
