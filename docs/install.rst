@@ -1,6 +1,8 @@
 Installation
 ============
 
+Only Python 3.3 or later is supported currently.
+
 Latest release
 --------------
 

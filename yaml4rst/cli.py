@@ -10,6 +10,7 @@ import logging
 import textwrap
 import argparse
 import re
+import sys
 import traceback
 
 from ._meta import __version__
@@ -116,6 +117,9 @@ def get_args_parser():
 
 
 def main():
+    if sys.version_info < (3, 3):  # pragma: no cover
+        raise SystemExit("Only Python 3.3 or newer is supported. Exiting.")
+
     args_parser = get_args_parser()
     args = args_parser.parse_args()
     if args.loglevel is None:

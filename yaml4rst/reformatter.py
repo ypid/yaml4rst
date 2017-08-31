@@ -31,6 +31,10 @@ from .helpers import get_first_match, get_last_index, insert_list, strip_list
 
 __all__ = ['YamlRstReformatterError', 'YamlRstReformatter', 'YAML_RST_REFORMATTER_FEATURES']
 
+# Sphinx might include the package so we can not terminate on Python 2 here. Done only in cli.py and setup.py for now.
+#  if sys.version_info < (3, 3):  # pragma: no cover
+#      raise SystemExit("Only Python 3.3 or newer is supported. Exiting.")
+
 # Before making pprint calls in debug logging, LOG.isEnabledFor(logging.DEBUG)
 # should be checked for performance reasons.
 LOG = logging.getLogger(__name__)

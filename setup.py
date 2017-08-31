@@ -3,7 +3,11 @@
 
 import re
 import os
+import sys
 from setuptools import setup, find_packages
+
+if sys.version_info < (3, 3):  # pragma: no cover
+    raise SystemExit("Only Python 3.3 or newer is supported. Exiting.")
 
 here = os.path.abspath(os.path.dirname(__file__))
 
