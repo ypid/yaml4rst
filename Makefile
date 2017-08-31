@@ -146,6 +146,7 @@ check-fixmes:
 
 .PHONY: clean
 clean:
+	$(MAKE) -C "docs" clean
 	find . -name '*.py[co]' -delete
 	rm -rf *.egg *.egg-info
 
