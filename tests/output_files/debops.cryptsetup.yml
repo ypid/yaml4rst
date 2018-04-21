@@ -1,8 +1,8 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-# debops.cryptsetup default variables [[[
-# =======================================
+# debops.cryptsetup default variables
+# ===================================
 
 # .. contents:: Sections
 #    :local:
@@ -260,6 +260,5 @@ cryptsetup_use_dev_random: True
 # :command:`cryptsetup --help`) is ``1000`` milliseconds.
 # Set to ``default`` to use the compiled-in default of :command:`cryptsetup`.
 cryptsetup_iter_time: 'default'
-                                                                   # ]]]
                                                                    # ]]]
                                                                    # ]]]

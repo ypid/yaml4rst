@@ -1,9 +1,13 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-{% set section_heading = ansible_full_role_name + " default variables [[[" %}
+{% set section_heading = ansible_full_role_name + " default variables" + top_level_section_suffix %}
 # {{ section_heading }}
 # {{ '=' * (section_heading|length) }}
 
 # .. contents:: Sections
-#    :local:
+#    :local:{% if header_include_rst_file != '' %}
+
+#
+# .. include:: {{ header_include_rst_file }}
+{%- endif -%}

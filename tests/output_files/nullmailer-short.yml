@@ -1,8 +1,8 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-# nullmailer-short default variables [[[
-# ======================================
+# nullmailer-short default variables
+# ==================================
 
 # .. contents:: Sections
 #    :local:
@@ -38,6 +38,5 @@ nullmailer__skip_mta: True
 # List of APT packages which will be installed to configure ``nullmailer``
 # service.
 nullmailer__base_packages: [ 'nullmailer' ]
-                                                                   # ]]]
                                                                    # ]]]
                                                                    # ]]]

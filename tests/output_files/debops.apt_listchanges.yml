@@ -1,8 +1,8 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-# debops.apt_listchanges default variables [[[
-# ============================================
+# debops.apt_listchanges default variables
+# ========================================
 
 # .. contents:: Sections
 #    :local:
@@ -127,6 +127,5 @@ apt_listchanges__profile_apticron:
   confirm: '0'
   which: '{{ apt_listchanges__apticron_which }}'
   save_seen: '/var/lib/apt/listchanges.db'
-                                                                   # ]]]
                                                                    # ]]]
                                                                    # ]]]

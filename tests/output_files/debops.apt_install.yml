@@ -1,8 +1,8 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-# debops.apt_install default variables [[[
-# ========================================
+# debops.apt_install default variables
+# ====================================
 
 # .. contents:: Sections
 #    :local:
@@ -307,6 +307,5 @@ apt_install__apt_preferences__dependent_list:
     backports: [ 'jessie' ]
     reason:  'Bug fixes and memory leak fixes.'
     by_role: 'debops.apt_install'
-                                                                   # ]]]
                                                                    # ]]]
                                                                    # ]]]

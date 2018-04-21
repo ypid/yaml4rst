@@ -1,8 +1,8 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-# test_vars default variables [[[
-# ===============================
+# test_vars default variables
+# ===========================
 
 # .. contents:: Sections
 #    :local:
@@ -25,5 +25,5 @@ cryptsetup_host_devices: []
 # some
 # thing
 cryptsetup_host: []
-                                                                   # ]]]
+
                                                                    # ]]]

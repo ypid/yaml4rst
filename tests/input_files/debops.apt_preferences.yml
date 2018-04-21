@@ -1,8 +1,8 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-# apt_preferences default variables [[[
-# =====================================
+# apt_preferences default variables
+# =================================
 
 # .. contents:: Sections
 #    :local:
@@ -175,6 +175,5 @@ apt_preferences__next_release:
 # .. Documentation, external links [[[
 
 # .. _`defaults file of the ypid.packages`: https://github.com/ypid/ansible-packages/blob/master/defaults/main.yml
-# ]]]
 # ]]]
 # ]]]

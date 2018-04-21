@@ -1,8 +1,8 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-# debops.sks default variables [[[
-# ================================
+# debops.sks default variables
+# ============================
 
 # .. contents:: Sections
 #    :local:
@@ -72,4 +72,3 @@ sks_public_list: []
 #    email: 'Server Administrator <root@example.org'
 #    gpg: '0xDEADBEEF'
 
-                                                                   # ]]]

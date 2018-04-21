@@ -1,8 +1,8 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-# debops.ferm default variables [[[
-# =================================
+# debops.ferm default variables
+# =============================
 
 # .. contents:: Sections
 #    :local:
@@ -708,6 +708,5 @@ ferm__external_interfaces:
 # List of interfaces that are connected to internal network, traffic on these
 # interfaces will be forwarded only between hosts on that network.
 ferm__internal_interfaces: [ 'br1' ]
-                                                                   # ]]]
                                                                    # ]]]
                                                                    # ]]]

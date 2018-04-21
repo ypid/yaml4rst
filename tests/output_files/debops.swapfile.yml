@@ -1,8 +1,8 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-# debops.swapfile default variables [[[
-# =====================================
+# debops.swapfile default variables
+# =================================
 
 # .. contents:: Sections
 #    :local:
@@ -68,6 +68,5 @@ swapfile__sysctl_file: '/etc/sysctl.d/30-debops.swapfile.conf'
 swapfile__sysctl_map:
   'vm.swappiness': '{{ swapfile__swappiness }}'
   'vm.vfs_cache_pressure': '{{ swapfile__cache_pressure }}'
-                                                                   # ]]]
                                                                    # ]]]
                                                                    # ]]]

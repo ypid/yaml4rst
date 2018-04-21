@@ -26,6 +26,8 @@ class Test(unittest.TestCase):
             config={
                 'ansible_full_role_name': 'role_owner.role_name',
                 'add_string_for_missing_comment': '',
+                'top_level_section_suffix': ' [[[',
+                # ]]]
             },
         )
         logging.getLogger().addHandler(logging.NullHandler())
@@ -1366,6 +1368,7 @@ class Test(unittest.TestCase):
             config={
                 'ansible_full_role_name': 'role_owner.role_name',
                 'add_string_for_missing_comment': "Please write nice description here!",
+                'top_level_section_suffix': ' [[[',
             },
         )
         self.r._lines = textwrap.dedent("""
@@ -2234,6 +2237,7 @@ class Test(unittest.TestCase):
                 'add_string_for_missing_comment':
                     "I don’t have a better description of what I am doing yet."
                     " Please change me!",
+                'top_level_section_suffix': ' [[[',
             },
         )
 
@@ -2504,6 +2508,8 @@ class Test(unittest.TestCase):
             config={
                 'ansible_full_role_name': 'role_owner.role_name',
                 'add_string_for_missing_comment': "Please write nice description here!",
+                'top_level_section_suffix': ' [[[',
+                'header_include_rst_file': 'includes/all.rst',
             },
         )
 
@@ -2539,6 +2545,8 @@ class Test(unittest.TestCase):
 
                 # .. contents:: Sections
                 #    :local:
+                #
+                # .. include:: includes/all.rst
 
 
                 # .. envvar:: role_name__1 [[[

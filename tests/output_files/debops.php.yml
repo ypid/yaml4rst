@@ -1,8 +1,8 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-# debops.php default variables [[[
-# ================================
+# debops.php default variables
+# ============================
 
 # .. contents:: Sections
 #    :local:
@@ -620,6 +620,5 @@ php__logrotate__dependent_config:
       {{ php__logrotate_lib_base }}/php{{ php__version }}-fpm-reopenlogs
       {% endif %}
 
-# ]]]
 # ]]]
 # ]]]

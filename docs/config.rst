@@ -34,3 +34,23 @@ Configuration
   Defaults to:
 
   .. program-output:: python -c 'from yaml4rst.defaults import DEFAULTS; print(DEFAULTS["config"]["add_string_for_missing_comment"])'
+
+``top_level_section_suffix``
+
+  The string to add to the top level section heading.  It was once a standard
+  in DebOps to surround the whole :file:`defaults/main.yml` file in a fold by
+  setting this variable to " [[[".
+
+  Defaults to:
+
+  .. program-output:: python -c 'from yaml4rst.defaults import DEFAULTS; print(DEFAULTS["config"]["top_level_section_suffix"])'
+
+``header_include_rst_file``
+
+  The string specify a RST file path which should be included using the
+  ``include`` RST directive in the header.  It was once a standard in DebOps to
+  include :file:`includes/all.rst` in the header.
+
+  Defaults to:
+
+  .. program-output:: python -c 'from yaml4rst.defaults import DEFAULTS; print(DEFAULTS["config"]["header_include_rst_file"])'

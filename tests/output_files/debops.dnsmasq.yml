@@ -1,8 +1,8 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-# debops.dnsmasq default variables [[[
-# ====================================
+# debops.dnsmasq default variables
+# ================================
 
 # .. contents:: Sections
 #    :local:
@@ -349,6 +349,5 @@ dnsmasq__apparmor__local_dependent_config:
     - comment: 'Allow dnsmasq to read /usr/share/dnsmasq-base/trust-anchors.conf provided by dnsmasq-base'
       rules:
         - '/usr/share/dnsmasq-base/* r'
-                                                                   # ]]]
                                                                    # ]]]
                                                                    # ]]]

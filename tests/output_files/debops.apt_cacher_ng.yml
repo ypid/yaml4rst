@@ -1,8 +1,8 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-# debops.apt_cacher_ng default variables [[[
-# ==========================================
+# debops.apt_cacher_ng default variables
+# ======================================
 
 # .. contents:: Sections
 #    :local:
@@ -578,6 +578,5 @@ apt_cacher_ng__nginx__servers:
       proxy_redirect off;
       proxy_buffering off;
 
-# ]]]
 # ]]]
 # ]]]

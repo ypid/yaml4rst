@@ -1,8 +1,8 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-# debops.apt_proxy default variables [[[
-# ======================================
+# debops.apt_proxy default variables
+# ==================================
 
 # .. contents:: Sections
 #    :local:
@@ -140,6 +140,5 @@ apt_proxy__ftp_login:
 #      'Proxy::Passive": 'true'
 #
 apt_proxy__ftp_options: {}
-                                                                   # ]]]
                                                                    # ]]]
                                                                    # ]]]

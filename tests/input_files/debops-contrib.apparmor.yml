@@ -1,8 +1,8 @@
 ---
 # .. vim: foldmarker=[[[,]]]:foldmethod=marker
 
-# debops-contrib.apparmor default variables [[[
-# =============================================
+# debops-contrib.apparmor default variables
+# =========================================
 
 # .. contents:: Sections
 #    :local:
@@ -234,6 +234,5 @@ apparmor__host_tunables: ''
 # Variable definitions managed by roles using this role as dependency.
 apparmor__tunables_dependent: ''
 
-# ]]]
 # ]]]
 # ]]]

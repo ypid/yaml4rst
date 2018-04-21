@@ -21,5 +21,7 @@ DEFAULTS = {
         'wanted_empty_lines_between_items': 2,
         'closing_fold_format_spec': '{:>72}',
         'add_string_for_missing_comment': 'FIXME(yaml4rst): Describe what this variable is doing.',
+        'top_level_section_suffix': '',
+        'header_include_rst_file': '',
     },
 }
