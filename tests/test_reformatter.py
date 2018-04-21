@@ -125,8 +125,6 @@ class Test(unittest.TestCase):
 
             # .. contents:: Sections
             #    :local:
-            #
-            # .. include:: includes/all.rst
         """).strip()
         assert_equal(
             expected_string,
@@ -153,8 +151,6 @@ class Test(unittest.TestCase):
 
             # .. contents:: Sections
             #    :local:
-            #
-            # .. include:: includes/all.rst
 
 
             role_name__1: 'test'
@@ -248,8 +244,6 @@ class Test(unittest.TestCase):
 
             # .. contents:: Sections
             #    :local:
-            #
-            # .. include:: includes/all.rst
 
 
                                                                                # ]]]
@@ -302,8 +296,6 @@ class Test(unittest.TestCase):
 
                 # .. contents:: Sections
                 #    :local:
-                #
-                # .. include:: includes/all.rst
 
 
                 # ---------------------------
@@ -495,8 +487,6 @@ class Test(unittest.TestCase):
 
                 # .. contents:: Sections
                 #    :local:
-                #
-                # .. include:: includes/all.rst
 
 
                 # .. envvar:: role_name__group_devices [[[
@@ -540,8 +530,6 @@ class Test(unittest.TestCase):
 
                 # .. contents:: Sections
                 #    :local:
-                #
-                # .. include:: includes/all.rst
 
 
                 # .. envvar:: role_name__group_devices [[[
@@ -681,8 +669,6 @@ class Test(unittest.TestCase):
 
                 # .. contents:: Sections
                 #    :local:
-                #
-                # .. include:: includes/all.rst
 
 
                 # .. envvar:: role_name__1 [[[
@@ -1408,8 +1394,6 @@ class Test(unittest.TestCase):
 
                 # .. contents:: Sections
                 #    :local:
-                #
-                # .. include:: includes/all.rst
 
 
                 # .. envvar:: role_name__1 [[[
@@ -2277,8 +2261,6 @@ class Test(unittest.TestCase):
 
                 # .. contents:: Sections
                 #    :local:
-                #
-                # .. include:: includes/all.rst
 
 
                 # .. envvar:: role_name__0 [[[
@@ -2347,8 +2329,6 @@ class Test(unittest.TestCase):
 
                 # .. contents:: Sections
                 #    :local:
-                #
-                # .. include:: includes/all.rst
 
 
                 # .. envvar:: role_name__0 [[[
@@ -2412,8 +2392,6 @@ class Test(unittest.TestCase):
 
                 # .. contents:: Sections
                 #    :local:
-                #
-                # .. include:: includes/all.rst
 
 
                 # .. envvar:: role_name__group_devices [[[
@@ -2469,8 +2447,6 @@ class Test(unittest.TestCase):
 
                 # .. contents:: Sections
                 #    :local:
-                #
-                # .. include:: includes/all.rst
 
 
                 # .. envvar:: role_name__0 [[[
@@ -2516,8 +2492,6 @@ class Test(unittest.TestCase):
 
                 # .. contents:: Sections
                 #    :local:
-                #
-                # .. include:: includes/all.rst
 
 
                                                                                    # ]]]
@@ -2565,8 +2539,6 @@ class Test(unittest.TestCase):
 
                 # .. contents:: Sections
                 #    :local:
-                #
-                # .. include:: includes/all.rst
 
 
                 # .. envvar:: role_name__1 [[[
@@ -2627,8 +2599,6 @@ class Test(unittest.TestCase):
 
             # .. contents:: Sections
             #    :local:
-            #
-            # .. include:: includes/all.rst
 
 
             # Required packages [[[
@@ -2739,8 +2709,6 @@ class Test(unittest.TestCase):
 
             # .. contents:: Sections
             #    :local:
-            #
-            # .. include:: includes/all.rst
 
 
             # Network accessibility [[[
@@ -2783,8 +2751,6 @@ class Test(unittest.TestCase):
 
             # .. contents:: Sections
             #    :local:
-            #
-            # .. include:: includes/all.rst
 
 
             # ------------------------------------
@@ -2809,8 +2775,6 @@ class Test(unittest.TestCase):
 
             # .. contents:: Sections
             #    :local:
-            #
-            # .. include:: includes/all.rst
 
 
             # Global options [[[
@@ -2873,8 +2837,6 @@ class Test(unittest.TestCase):
 
             # .. contents:: Sections
             #    :local:
-            #
-            # .. include:: includes/all.rst
 
 
             # Global options [[[
