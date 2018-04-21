@@ -80,7 +80,9 @@ class YamlRstReformatter(object):
             '# Default variables',
             '#    :local:',
             '# .. contents:: Sections',
-            '# .. include:: includes/all.rst'
+            '# .. include:: includes/all.rst',
+            '# .. include:: includes/role.rst',
+            '# .. include:: ../../../includes/global.rst',
         ],
     }
 
