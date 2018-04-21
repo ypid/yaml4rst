@@ -89,8 +89,8 @@ class Test(unittest.TestCase):
             ),
         )
 
-    @unittest.mock.patch('sys.stdout', new_callable=StringIO)  # pylint: disable=no-member
     @tempdir()
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)  # pylint: disable=no-member
     def test_read_write_file(self, mock_stdout, d):
         file_path = os.path.join(d.path, 'main.yml')
         input_data = textwrap.dedent(u"""
